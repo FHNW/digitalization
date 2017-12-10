@@ -135,6 +135,12 @@ $string['delivery_email_subject'] = 'TUM/MOODLE: Digitalisierung abgeschlossen';
 $string['delivery_email_body'] = 'Ihr Digitalisierungsauftrag wurde abgeschlossen und das bestellte Medium in Moodle eingebunden. ';
 
 $string['view_error'] = "Dieses Dokument steht im Moment nicht zur Verf&uuml;gung. ";
-
+$string['library_url'] = 'Bibliothek-URL';
+$string['library_url_help'] = 'Vollständige URL des bestellten Werkes. Die Suchadresse: http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic';
+$string['load_order_info'] = 'Die Informationen laden';
+$string['load_order_info_help'] = 'Die Informationen über das bestellte Werk laden';
+$string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
+$string['library_search'] = 'Bibliothek durchsuchen';
+$string['failed_to_load_url'] = 'Kann die URL nicht laden {$a->url} (Status {$a->status}).';
 ?>
 

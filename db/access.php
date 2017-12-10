@@ -49,28 +49,18 @@
 defined('MOODLE_INTERNAL') || die();
 
 $capabilities = array(
-	
-    /*// View the downloadable file
-    'mod/digitalization:view' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_MODULE,
-        'legacy' => array(
-            'student' => CAP_ALLOW,
-            'teacher' => CAP_ALLOW,
-            'editingteacher' => CAP_ALLOW,
-            'admin' => CAP_ALLOW
-        )
-    ),
 
-    // List the details of an order
-    'mod/digitalization:detail' => array(
-        'captype' => 'read',
-        'contextlevel' => CONTEXT_MODULE,
-        'legacy' => array(
-            'teacher' => CAP_ALLOW,
+    'mod/digitalization:addinstance' => array(
+        'riskbitmask' => RISK_XSS,
+
+        'captype' => 'write',
+        'contextlevel' => CONTEXT_COURSE,
+        'archetypes' => array(
             'editingteacher' => CAP_ALLOW,
-            'admin' => CAP_ALLOW
-        )
-    )*/
+            'manager' => CAP_ALLOW
+        ),
+        'clonepermissionsfrom' => 'moodle/course:manageactivities'
+    ),
 );
+
 

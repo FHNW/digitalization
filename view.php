@@ -46,9 +46,14 @@ if ($id) {
 
 require_login($course, true, $cm);
 
-$context = get_context_instance(CONTEXT_MODULE, $cm->id);
+$context = context_module::instance($cm->id);
 
-add_to_log($course->id, 'digitalization', 'view', "view.php?id=$cm->id", $digitalization->name, $cm->id);
+$event = \mod_digitalization\event\course_module_viewed::create(array(
+    'objectid' => $PAGE->cm->instance,
+    'context' => $PAGE->context,
+));
+$event->add_record_snapshot('course', $PAGE->course);
+$event->trigger();
 
 /**
  * Case distinction: Either the DB record status is set to "delivered", then we forward the user to the file. This is done for everyone - group???
@@ -89,14 +94,12 @@ if($digitalization->status === 'delivered')  {
 	print_error(get_string('view_error', 'digitalization'));
 
 
-    $PAGE->set_button(update_module_button($cm->id, $course->id, get_string('modulename', 'digitalization')));
-
     // Output starts here
     echo $OUTPUT->header();
 
     echo $OUTPUT->heading($digitalization->name);
 
-    $user_object = $DB->get_record('user', array('id' => $digitalization->user));
+    $user_object = $DB->get_record('user', array('id' => $digitalization->userid));
 
     echo '
 <table>

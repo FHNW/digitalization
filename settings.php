@@ -39,53 +39,53 @@ if ($ADMIN->fulltree) {
     // FTP and storage settings
     $settings->add(new admin_setting_heading('digitalization_ftp_config', get_string('ftp_config', 'digitalization'), get_string('ftp_config_desc', 'digitalization')));
 
-    $settings->add(new admin_setting_configcheckbox('digitalization_delete_files', get_string('delete_files', 'digitalization'), 
+    $settings->add(new admin_setting_configcheckbox('digitalization_delete_files', get_string('delete_files', 'digitalization'),
 			get_string('delete_files_desc', 'digitalization'), 1));
 
-    $settings->add(new admin_setting_configselect('digitalization_use_ftp', get_string('ftps_config', 'digitalization'), get_string('ftps_config_desc',         
+    $settings->add(new admin_setting_configselect('digitalization_use_ftp', get_string('ftps_config', 'digitalization'), get_string('ftps_config_desc',
             'digitalization'), 'ftp', array('ftp'=>'FTP', 'ftps'=>'FTPs', 'sftp'=>'PHP internal SFTP', 'sftplib' => 'SFTP with third party lib')));
 
-    $settings->add(new admin_setting_configtext('digitalization_ftp_host', get_string('ftp_host', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_ftp_host', get_string('ftp_host', 'digitalization'),
 			get_string('ftp_host_desc', 'digitalization'), 'localhost'));
 
-    $settings->add(new admin_setting_configtext('digitalization_ftp_user', get_string('ftp_user', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_ftp_user', get_string('ftp_user', 'digitalization'),
 			get_string('ftp_user_desc', 'digitalization'), 'user'));
 
-    $settings->add(new admin_setting_configpasswordunmask('digitalization_ftp_pwd', get_string('ftp_pwd', 'digitalization'), 
+    $settings->add(new admin_setting_configpasswordunmask('digitalization_ftp_pwd', get_string('ftp_pwd', 'digitalization'),
 			get_string('ftp_pwd_desc', 'digitalization'), 'abc123'));
 
-    $settings->add(new admin_setting_configtext('digitalization_ftp_dir', get_string('ftp_dir', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_ftp_dir', get_string('ftp_dir', 'digitalization'),
 			get_string('ftp_dir_desc', 'digitalization'), 'mdocs/'));
 
-    $settings->add(new admin_setting_configtext('digitalization_filearea', get_string('filearea', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_filearea', get_string('filearea', 'digitalization'),
 			get_string('filearea_desc', 'digitalization'), 'content'));
 
     // Order mgmt and mail settings
     $settings->add(new admin_setting_heading('digitalization_mail_config', get_string('mail_config', 'digitalization'), get_string('mail_config_desc', 'digitalization')));
 
-    $settings->add(new admin_setting_configtext('digitalization_opac_url', get_string('opac_url', 'digitalization'), 
-			get_string('opac_url_desc', 'digitalization'), 'http://www.ub.tum.de/opac/tum-online-katalog-opac'));
+    $settings->add(new admin_setting_configtext('digitalization_opac_url', get_string('opac_url', 'digitalization'),
+			get_string('opac_url_desc', 'digitalization'), 'http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic&vid=NEBIS&tab=default_tab'));
 
-    $settings->add(new admin_setting_configtext('digitalization_order_mail', get_string('order_mail', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_order_mail', get_string('order_mail', 'digitalization'),
 			get_string('order_mail_desc', 'digitalization'), 'subito-test@dev.moodle.tum.de'));
 
-    $settings->add(new admin_setting_configtext('digitalization_sender_sign', get_string('sender_sign', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_sender_sign', get_string('sender_sign', 'digitalization'),
 			get_string('sender_sign_desc', 'digitalization'), 'TUM/MOODLE <noreply@moodle.tum.de>'));
 
-    $settings->add(new admin_setting_configtext('digitalization_mail_subject', get_string('mail_subject', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_mail_subject', get_string('mail_subject', 'digitalization'),
 			get_string('mail_subject_desc', 'digitalization'), 'Digitalization Order (TUM/MOODLE)'));
 
 
     // Information to user about delivered files
     $settings->add(new admin_setting_heading('digitalization_delivery_config', get_string('delivery_config', 'digitalization'), get_string('delivery_config_desc', 'digitalization')));
 
-    $settings->add(new admin_setting_configcheckbox('digitalization_delivery_sendmail', get_string('delivery_send_mail', 'digitalization'), 
+    $settings->add(new admin_setting_configcheckbox('digitalization_delivery_sendmail', get_string('delivery_send_mail', 'digitalization'),
 			get_string('delivery_send_mail_desc', 'digitalization'), 1));
 
-    $settings->add(new admin_setting_configcheckbox('digitalization_delivery_attach_details', get_string('delivery_email_attach_details', 'digitalization'), 
+    $settings->add(new admin_setting_configcheckbox('digitalization_delivery_attach_details', get_string('delivery_email_attach_details', 'digitalization'),
 			get_string('delivery_email_attach_details_desc', 'digitalization'), 1));
 
-    $settings->add(new admin_setting_configtext('digitalization_delivery_sender_sign', get_string('delivery_email_sender', 'digitalization'), 
+    $settings->add(new admin_setting_configtext('digitalization_delivery_sender_sign', get_string('delivery_email_sender', 'digitalization'),
 			get_string('delivery_email_sender_desc', 'digitalization'), 'TUM/MOODLE <noreply@moodle.tum.de>'));
 
 

@@ -6,53 +6,54 @@
  * @since d#9
  */
 class SFTPLibHandler extends FileTransferStub {
-    
+
     /**
      * Connection handle
      */
     protected $sftp = null;             //ID of the ssh connection
     protected $connected = false;       //Set to true after a successful login
-    
+
     /**
      * Connects to the server via using $host.
      *
      * @return TRUE, if connection to host can be established.
      */
     function connect() {
-    
-        set_include_path(getcwd() . PATH_SEPARATOR . '../mod/digitalization/filetransfer/ext/phpseclib0.3.0');
-        require("ext/phpseclib0.3.0/Net/SFTP.php");
+
+        global $CFG;
+        set_include_path(get_include_path() . PATH_SEPARATOR . $CFG->dirroot . '/mod/digitalization/filetransfer/ext/phpseclib');
+        require("Net/SFTP.php");
 
         //Open connection to the remote host via SSH
         $this->sftp = new Net_SFTP($this->host);
-        
+
         if($this->sftp) {
             return true;
         }
-        
+
         return false;
     }
-    
+
     /**
-     * Creates a session with the host. 
-     * 
+     * Creates a session with the host.
+     *
      * @return session
      */
     function login() {
-        
+
         if ($this->sftp) {
             $this->connected = $this->sftp->login($this->user, $this->pwd);
         }
-        
+
         if ($this->connected) {
             return true;
         }
         return false;
     }
-    
+
     /**
-     * Lists the file names of a directory. 
-     * 
+     * Lists the file names of a directory.
+     *
      * @param $path Path to the directory
      * @return List of file names
      */
@@ -60,9 +61,9 @@ class SFTPLibHandler extends FileTransferStub {
         $this->sftp->chdir($path);
         return $this->sftp->nlist();
     }
-    
+
     /**
-     * Receives the file content from the remote location and saves it locally. 
+     * Receives the file content from the remote location and saves it locally.
      *
      * @param $remotePath Remote file path
      * @param $localFileHandle Local file path handle
@@ -86,17 +87,17 @@ class SFTPLibHandler extends FileTransferStub {
 
         return $success;
     }
-    
+
     /**
      * Removes a remote file.
-     * 
+     *
      * @param $path File path
      * @return TRUE, if file could be deleted
      */
     function remFile($path) {
         return $this->sftp->delete($path);
     }
-    
+
     /**
      * Close the session
      */
@@ -105,5 +106,5 @@ class SFTPLibHandler extends FileTransferStub {
             $this->sftp->close();
         }*/
     }
-} 
+}
 ?>

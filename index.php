@@ -37,7 +37,10 @@ if (! $course = $DB->get_record('course', array('id' => $id))) {
 
 require_course_login($course);
 
-add_to_log($course->id, 'digitalization', 'view all', "index.php?id=$course->id", '');
+$event = \mod_digitalization\event\course_module_instance_list_viewed::create(array(
+    'context' => context_course::instance($course->id)
+));
+$event->trigger();
 
 /// Print the header
 

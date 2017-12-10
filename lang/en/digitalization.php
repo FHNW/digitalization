@@ -130,5 +130,12 @@ $string['delivery_email_subject'] = 'TUM/MOODLE: Digitalization completed';
 $string['delivery_email_body'] = 'Your digitalization order is completed and the delivered file was linked to your Moolde course.';
 
 $string['view_error'] = 'This document is temporarily not available.';
+$string['library_url'] = 'Library URL';
+$string['library_url_help'] = 'Full URL of the library web page with the document to be ordered. Start search at http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic';
+$string['load_order_info'] = 'Load document information';
+$string['load_order_info_help'] = 'Load document information from the library page';
+$string['get_deliveries'] = 'Check for DigiSem deliveries';
+$string['library_search'] = 'Search Library';
+$string['failed_to_load_url'] = 'Unable to load url {$a->url} (status {$a->status}).';
 ?>
 
