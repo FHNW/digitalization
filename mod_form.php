@@ -151,7 +151,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->setType('pages', PARAM_NOTAGS);
 
 
-            $mform->addElement('text', 'identifier', 'ISBN / ISSN');
+            $mform->addElement('text', 'identifier', 'ISBN / ISSN', array('size' => 45));
             $mform->setDefault('identifier', $this->media_data->identifier);
             $mform->setType('identifier', PARAM_NOTAGS);
 
