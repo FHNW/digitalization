@@ -353,7 +353,7 @@ function digitalization_check_delieveries()
                 $stored_file = $fs->create_file_from_pathname($file_record, $rel_path_to_tmp_data);
 
                 // Alter the file_record to insert a course file
-                $file_record['contextid'] = context_course($request_objects[$id]->course)->id;
+                $file_record['contextid'] = context_course::instance($request_objects[$id]->course)->id;
                 $file_record['component'] = 'course';
                 $file_record['filearea'] = 'summary';
                 // The following setting leads to an error, if a file with the same name exists - we catch the exception and continue...
