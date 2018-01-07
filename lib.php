@@ -46,7 +46,6 @@ function get_libraries() {
     );
 }
 
-
 /**
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function

@@ -200,6 +200,15 @@ class mod_digitalization_mod_form extends moodleform_mod
         return $errors;
     }
 
+    function is_cancelled()
+    {
+        $isCanceled = parent::is_cancelled();
+        if ($isCanceled) {
+            digitalization_helper_clear_session();
+        }
+        return $isCanceled;
+    }
+
 
     private function set_media_data()
     {
