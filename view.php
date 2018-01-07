@@ -129,6 +129,10 @@ if($digitalization->status === 'delivered')  {
 <td><p>'. $digitalization->name .'</p></p></td>
 </tr>
 <tr>
+<td><p>'. get_string('library', 'digitalization') .'</p></td>
+<td><p>'. get_libraries()[$digitalization->library] .'</p></p></td>
+</tr>
+<tr>
 <td><p>'. get_string('author', 'digitalization') .'</p></td>
 <td><p>'. $digitalization->author .'</p></p></td>
 </tr>

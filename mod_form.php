@@ -36,6 +36,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 require_once($CFG->dirroot . '/course/moodleform_mod.php');
+require_once($CFG->dirroot . '/mod/digitalization/lib.php');
 
 class mod_digitalization_mod_form extends moodleform_mod
 {
@@ -70,21 +71,21 @@ class mod_digitalization_mod_form extends moodleform_mod
         $mform->addElement('text', 'name', get_string('name', 'digitalization'), $name_attributes);
 
 
-        if (!empty($CFG->formatstringstriptags)) {
-            $mform->setType('name', PARAM_TEXT);
-        } else {
-            $mform->setType('name', PARAM_CLEAN);
-        }
+        $mform->setType('name', PARAM_TEXT);
 
         $mform->addRule('name', null, 'required', null, 'client');
         $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
         $mform->addHelpButton('name', 'name', 'digitalization');
 
-        // If this form is used to modify an existing digitalization, we do not want the user to update the order details
-
         //Frame for fields
         $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
 
+        // library
+        $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
+        $mform->addRule('library', null, 'required', null, 'client');
+        if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != null)) {
+            $mform->setDefault('library', $_SESSION['dig_library']);
+        }
 
         $this->set_media_data();
         if ($this->media_data == null && !$this->done) {
@@ -198,6 +199,13 @@ class mod_digitalization_mod_form extends moodleform_mod
         if (isset($_SESSION['dig_title'])) {
 
             $this->media_data = new stdClass();
+
+            // library
+            if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != '')) {
+                $this->media_data->library = $_SESSION['dig_library'];
+            } else {
+                $this->media_data->library = '';
+            }
             //Signature
             if (isset($_SESSION['dig_sign']) && $_SESSION['dig_sign'] != '') {
                 $this->media_data->sign = $_SESSION['dig_sign'];

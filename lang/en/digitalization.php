@@ -136,6 +136,8 @@ $string['load_order_info'] = 'Load document information';
 $string['load_order_info_help'] = 'Load document information from the library page';
 $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';
+$string['libraries_select'] = 'Choose the library';
+$string['library'] = 'Library';
 $string['failed_to_load_url'] = 'Unable to load url {$a->url} (status {$a->status}).';
 ?>
 

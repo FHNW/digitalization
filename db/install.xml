@@ -17,7 +17,8 @@
         <FIELD NAME="sign" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="status" NEXT="isbn"/>
         <FIELD NAME="isbn" TYPE="char" LENGTH="18" NOTNULL="false" SEQUENCE="false" PREVIOUS="sign" NEXT="issn"/>
         <FIELD NAME="issn" TYPE="char" LENGTH="15" NOTNULL="false" SEQUENCE="false" PREVIOUS="isbn" NEXT="author"/>
-        <FIELD NAME="author" TYPE="char" LENGTH="160" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="atitle"/>
+        <FIELD NAME="author" TYPE="char" LENGTH="160" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="library"/>
+        <FIELD NAME="library" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="author" NEXT="atitle"/>
         <FIELD NAME="atitle" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="title"/>
         <FIELD NAME="title" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="atitle" NEXT="volume"/>
         <FIELD NAME="volume" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" PREVIOUS="title" NEXT="issue"/>

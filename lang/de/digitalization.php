@@ -141,6 +141,7 @@ $string['load_order_info'] = 'Die Informationen laden';
 $string['load_order_info_help'] = 'Die Informationen über das bestellte Werk laden';
 $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
+$string['libraries_select'] = 'Wählen Sie Ihre Bibliothek';
+$string['library'] = 'Bibliothek';
 $string['failed_to_load_url'] = 'Kann die URL nicht laden {$a->url} (Status {$a->status}).';
 ?>
-

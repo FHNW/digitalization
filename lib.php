@@ -33,6 +33,21 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
 /**
+ * Returns ist of supported libraries
+ */
+function get_libraries() {
+    return array(
+        'Bibliothek Basel ISEK',
+        'Bibliothek Basel ISP',
+        'Bibliothek Brugg-Windisch Pädagogik',
+        'Bibliothek Brugg-Windisch Technik',
+        'Bibliothek Brugg-Windisch Wirtschaft',
+        'Bibliothek Brugg-Windisch Technik'
+    );
+}
+
+
+/**
  * Given an object containing all the necessary data,
  * (defined by the form in mod_form.php) this function
  * will create a new instance and return the id number
@@ -55,6 +70,7 @@ function digitalization_add_instance($digitalization)
         $_SESSION['dig_name'] = $digitalization->name;
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
+        $_SESSION['dig_library'] = $digitalization->library;
         redirect($PAGE->url);
     } else {
         //Extend the given digitalization object:
@@ -603,6 +619,7 @@ transaction-group-qualifier: ' . digitalization_helper_create_order_id_for($digi
 del-email-address: ' . $digitalization->useremail . '
 del-postal-name-of-person-or-institution: ' . $digitalization->username . '
 item-type: OTHER
+item-library: ' . get_libraries()[$digitalization->library] . '
 item-title: ' . $digitalization->title . '
 item-volume-issue: ' . $digitalization->volume . ' (' . $digitalization->issue . ')
 item-publication-date: ' . $digitalization->pub_date . '
