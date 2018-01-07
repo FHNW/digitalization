@@ -692,11 +692,12 @@ function digitalization_helper_clear_session()
     unset($_SESSION['dig_volume']);
     unset($_SESSION['dig_issue']);
     unset($_SESSION['dig_date']);
+    unset($_SESSION['dig_author']);
     unset($_SESSION['dig_aufirst']);
     unset($_SESSION['dig_aulast']);
     unset($_SESSION['dig_atitle']);
     unset($_SESSION['dig_issn']);
-    unset($_SESSION['dig_identification']);
+    unset($_SESSION['dig_identifier']);
     unset($_SESSION['dig_isbn']);
     unset($_SESSION['dig_publisher']);
     unset($_SESSION['dig_pagecount']);
