@@ -88,7 +88,7 @@ class mod_digitalization_mod_form extends moodleform_mod
         }
 
         $this->set_media_data();
-        if ($this->media_data == null && !$this->done) {
+        if ($this->media_data == null) {
 
             /*
                  * If the has not imported any media data, we display the import button.
@@ -100,13 +100,15 @@ class mod_digitalization_mod_form extends moodleform_mod
             $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
             $mform->addElement('text', 'library_url', get_string('library_url', 'digitalization'));
             $mform->addHelpButton('library_url', 'library_url', 'digitalization');
-            $mform->addRule('library_url', null, 'required', null, 'client');
+//            $mform->addRule('library_url', null, 'required', null, 'client');
             $mform->setType('library_url', PARAM_URL);
 
             $elementsArray = array();
             array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));
             $mform->addGroup($elementsArray, 'import_from_opac_group', '', array(' '), false);
             $mform->addHelpButton('import_from_opac_group', 'load_order_info', 'digitalization');
+
+            $mform->addElement('submit', 'enter_manually', get_string('enter_manually', 'digitalization'));
 
 
         } else {
@@ -190,13 +192,21 @@ class mod_digitalization_mod_form extends moodleform_mod
 
     }
 
+    function validation($data, $files) {
+        $errors = array();
+        if (array_key_exists('library_url', $data) && ($data['library_url'] == "") && !array_key_exists('enter_manually', $data)) {
+            $errors['library_url'] = get_string('library_url_or_manually', 'digitalization');
+        }
+        return $errors;
+    }
+
 
     private function set_media_data()
     {
 
         //If user is coming back from selecting a media in InfoGuide, create an
         //object holding all the information of the selected media
-        if (isset($_SESSION['dig_title'])) {
+        if (isset($_SESSION['dig_title']) || isset($_SESSION['dig_manually'])) {
 
             $this->media_data = new stdClass();
 

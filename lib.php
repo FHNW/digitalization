@@ -65,7 +65,14 @@ function digitalization_add_instance($digitalization)
     // 1. When the "Import Metadata from OPAC"-Button is clicked
     // 2. When one of the "Save"-Buttons is clicked
 
-    if (isset($digitalization->library_url)) {
+    if (isset($digitalization->enter_manually)) {
+        $_SESSION['dig_name'] = $digitalization->name;
+        $_SESSION['dig_course_id'] = $digitalization->course;
+        $_SESSION['dig_section'] = $digitalization->section;
+        $_SESSION['dig_library'] = $digitalization->library;
+        $_SESSION['dig_manually'] = 1;
+        redirect($PAGE->url);
+    } elseif (isset($digitalization->library_url)) {
         digitalization_helper_parse_page($digitalization->library_url);
         $_SESSION['dig_name'] = $digitalization->name;
         $_SESSION['dig_course_id'] = $digitalization->course;
@@ -694,6 +701,8 @@ function digitalization_helper_clear_session()
     unset($_SESSION['dig_isbn']);
     unset($_SESSION['dig_publisher']);
     unset($_SESSION['dig_pagecount']);
+    unset($_SESSION['dig_library']);
+    unset($_SESSION['dig_manually']);
 }
 
 
