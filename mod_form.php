@@ -49,127 +49,137 @@ class mod_digitalization_mod_form extends moodleform_mod
     function definition()
     {
 
-        global $PAGE, $COURSE;
+        global $PAGE, $DB, $USER;
         $mform =& $this->_form;
 
-        $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
-
-        //Adding the "general" fieldset, where all the common settings are displayed
-        $mform->addElement('header', 'general', get_string('general', 'form'));
-
-        //Adding the standard "name" field
-        $name_attributes = array('size' => '45');
-        if (isset($_SESSION['dig_name']) && $_SESSION['dig_name'] != '') {
-            $name_attributes['value'] = $_SESSION['dig_name'];
+        // if the module is already created don't allow any editing
+        if ($this->get_coursemodule() != null) {
+            $cm = $this->get_coursemodule();
+            $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
+            $digitalization = $DB->get_record('digitalization', array('id' => $cm->instance), '*', MUST_EXIST);
+            $user_object = $DB->get_record('user', array('id' => $USER->id));
+            $mform->addElement('html', digitalization_helper_render_information($digitalization, $course, $user_object));
         } else {
-            $name_attributes['value'] = '';
-        }
 
-        $mform->addElement('text', 'name', get_string('name', 'digitalization'), $name_attributes);
+            $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
 
+            //Adding the "general" fieldset, where all the common settings are displayed
+            $mform->addElement('header', 'general', get_string('general', 'form'));
 
-        $mform->setType('name', PARAM_TEXT);
-
-        $mform->addRule('name', null, 'required', null, 'client');
-        $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-        $mform->addHelpButton('name', 'name', 'digitalization');
-
-        //Frame for fields
-        $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
-
-        // library
-        $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
-        $mform->addRule('library', null, 'required', null, 'client');
-        if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != null)) {
-            $mform->setDefault('library', $_SESSION['dig_library']);
-        }
-
-
-        $this->set_media_data();
-        if ($this->media_data == null) {
-
-            /*
-                 * If the has not imported any media data, we display the import button.
-             */
-
-
-            //As the SUBMIT-element does not support adding a help button, we pack the button into a element group
-            //and add the help button to the group.
-            $mform->addElement('text', 'library_url', get_string('library_url', 'digitalization'));
-            if (isset($_SESSION['dig_library_url'])) {
-                $mform->setDefault('library_url', $_SESSION['dig_library_url']);
+            //Adding the standard "name" field
+            $name_attributes = array('size' => '45');
+            if (isset($_SESSION['dig_name']) && $_SESSION['dig_name'] != '') {
+                $name_attributes['value'] = $_SESSION['dig_name'];
+            } else {
+                $name_attributes['value'] = '';
             }
-            $mform->addHelpButton('library_url', 'library_url', 'digitalization');
+
+            $mform->addElement('text', 'name', get_string('name', 'digitalization'), $name_attributes);
+
+
+            $mform->setType('name', PARAM_TEXT);
+
+            $mform->addRule('name', null, 'required', null, 'client');
+            $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+            $mform->addHelpButton('name', 'name', 'digitalization');
+
+            //Frame for fields
+            $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
+
+            // library
+            $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
+            $mform->addRule('library', null, 'required', null, 'client');
+            if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != null)) {
+                $mform->setDefault('library', $_SESSION['dig_library']);
+            }
+
+
+            $this->set_media_data();
+            if ($this->media_data == null) {
+
+                /*
+                     * If the has not imported any media data, we display the import button.
+                 */
+
+
+                //As the SUBMIT-element does not support adding a help button, we pack the button into a element group
+                //and add the help button to the group.
+                $mform->addElement('text', 'library_url', get_string('library_url', 'digitalization'));
+                if (isset($_SESSION['dig_library_url'])) {
+                    $mform->setDefault('library_url', $_SESSION['dig_library_url']);
+                }
+                $mform->addHelpButton('library_url', 'library_url', 'digitalization');
 //            $mform->addRule('library_url', null, 'required', null, 'client');
-            $mform->setType('library_url', PARAM_URL);
-            if (isset($_SESSION['dig_found_any']) && $_SESSION['dig_found_any'] == False) {
-                $mform->addElement('html', '<div class="form-group row has-danger">'.
-                '<div class="col-md-3"></div><div class="col-md-9 form-control-feedback">- ' .
-                    get_string('invalid_library_url', 'digitalization') .'</div></div>');
+                $mform->setType('library_url', PARAM_URL);
+                if (isset($_SESSION['dig_found_any']) && $_SESSION['dig_found_any'] == False) {
+                    $mform->addElement('html', '<div class="form-group row has-danger">' .
+                        '<div class="col-md-3"></div><div class="col-md-9 form-control-feedback">- ' .
+                        get_string('invalid_library_url', 'digitalization') . '</div></div>');
+                }
+
+                $elementsArray = array();
+                array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));
+                $mform->addGroup($elementsArray, 'import_from_opac_group', '', array(' '), false);
+                $mform->addHelpButton('import_from_opac_group', 'load_order_info', 'digitalization');
+
+                $mform->addElement('submit', 'enter_manually', get_string('enter_manually', 'digitalization'));
+
+
+            } else {
+
+                //Author
+                $mform->addElement('text', 'author', get_string('author', 'digitalization'));
+                $mform->setDefault('author', $this->media_data->author);
+                $mform->addRule('author', null, 'required', null, 'client');
+                $mform->setType('author', PARAM_NOTAGS);
+
+                //Title of chapter/article
+                $mform->addElement('text', 'atitle', get_string('article_title', 'digitalization'));
+                $mform->setDefault('atitle', $this->media_data->atitle);
+                $mform->addRule('atitle', null, 'required', null, 'client');
+                $mform->setType('atitle', PARAM_NOTAGS);
+
+                //Title of book/journal
+                $mform->addElement('text', 'title', get_string('media_title', 'digitalization'));
+                $mform->setDefault('title', $this->media_data->title);
+                $mform->addRule('title', null, 'required', null, 'client');
+                $mform->setType('title', PARAM_NOTAGS);
+
+                //Publication date
+                $mform->addElement('text', 'pub_date', get_string('date', 'digitalization'));
+                $mform->addRule('pub_date', null, 'required', null, 'client');
+                $mform->setDefault('pub_date', $this->media_data->date);
+                $mform->setType('pub_date', PARAM_NOTAGS);
+
+
+                //Pages
+                $pages_attributes = array('size' => '45');
+                $mform->addElement('text', 'pages', get_string('pages', 'digitalization'), $pages_attributes);
+
+                $mform->addRule('pages', null, 'required', null, 'client');
+                $mform->addRule('pages', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+                $mform->addHelpButton('pages', 'pages', 'digitalization');
+                $mform->setType('pages', PARAM_NOTAGS);
+
+
+                $mform->addElement('text', 'identifier', 'ISBN / ISSN', array('size' => 45));
+                $mform->setDefault('identifier', $this->media_data->identifier);
+                $mform->setType('identifier', PARAM_NOTAGS);
+
+                // Publisher
+                $mform->addElement('text', 'publisher', get_string('publisher', 'digitalization'));
+                $mform->setDefault('publisher', $this->media_data->publisher);
+                $mform->setType('publisher', PARAM_NOTAGS);
+                //Comment
+                $comment_attributes = array('size' => '45');
+                $mform->addElement('text', 'dig_comment', get_string('comment', 'digitalization'), $comment_attributes);
+
+                $mform->addRule('dig_comment', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
+                $mform->addHelpButton('dig_comment', 'comment', 'digitalization');
+                $mform->setType('dig_comment', PARAM_TEXT);
+
+                $mform->addElement('submit', 'back_to_automatic', get_string('back_to_automatic', 'digitalization'));
             }
-
-            $elementsArray = array();
-            array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));
-            $mform->addGroup($elementsArray, 'import_from_opac_group', '', array(' '), false);
-            $mform->addHelpButton('import_from_opac_group', 'load_order_info', 'digitalization');
-
-            $mform->addElement('submit', 'enter_manually', get_string('enter_manually', 'digitalization'));
-
-
-        } else {
-
-            //Author
-            $mform->addElement('text', 'author', get_string('author', 'digitalization'));
-            $mform->setDefault('author', $this->media_data->author);
-            $mform->addRule('author', null, 'required', null, 'client');
-            $mform->setType('author', PARAM_NOTAGS);
-
-            //Title of chapter/article
-            $mform->addElement('text', 'atitle', get_string('article_title', 'digitalization'));
-            $mform->setDefault('atitle', $this->media_data->atitle);
-            $mform->addRule('atitle', null, 'required', null, 'client');
-            $mform->setType('atitle', PARAM_NOTAGS);
-
-            //Title of book/journal
-            $mform->addElement('text', 'title', get_string('media_title', 'digitalization'));
-            $mform->setDefault('title', $this->media_data->title);
-            $mform->addRule('title', null, 'required', null, 'client');
-            $mform->setType('title', PARAM_NOTAGS);
-
-            //Publication date
-            $mform->addElement('text', 'pub_date', get_string('date', 'digitalization'));
-            $mform->addRule('pub_date', null, 'required', null, 'client');
-            $mform->setDefault('pub_date', $this->media_data->date);
-            $mform->setType('pub_date', PARAM_NOTAGS);
-
-
-            //Pages
-            $pages_attributes = array('size' => '45');
-            $mform->addElement('text', 'pages', get_string('pages', 'digitalization'), $pages_attributes);
-
-            $mform->addRule('pages', null, 'required', null, 'client');
-            $mform->addRule('pages', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-            $mform->addHelpButton('pages', 'pages', 'digitalization');
-            $mform->setType('pages', PARAM_NOTAGS);
-
-
-            $mform->addElement('text', 'identifier', 'ISBN / ISSN', array('size' => 45));
-            $mform->setDefault('identifier', $this->media_data->identifier);
-            $mform->setType('identifier', PARAM_NOTAGS);
-
-            // Publisher
-            $mform->addElement('text', 'publisher', get_string('publisher', 'digitalization'));
-            $mform->setDefault('publisher', $this->media_data->publisher);
-            $mform->setType('publisher', PARAM_NOTAGS);
-            //Comment
-            $comment_attributes = array('size' => '45');
-            $mform->addElement('text', 'dig_comment', get_string('comment', 'digitalization'), $comment_attributes);
-
-            $mform->addRule('dig_comment', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
-            $mform->addHelpButton('dig_comment', 'comment', 'digitalization');
-            $mform->setType('dig_comment', PARAM_TEXT);
-
-            $mform->addElement('submit', 'back_to_automatic', get_string('back_to_automatic', 'digitalization'));
         }
 
         //Add standard elements, common to all modules
@@ -190,7 +200,8 @@ class mod_digitalization_mod_form extends moodleform_mod
 
     }
 
-    function validation($data, $files) {
+    function validation($data, $files)
+    {
         $errors = array();
         if (array_key_exists('library_url', $data) && ($data['library_url'] == "") && !array_key_exists('enter_manually', $data)) {
             $errors['library_url'] = get_string('library_url_or_manually', 'digitalization');
@@ -213,7 +224,7 @@ class mod_digitalization_mod_form extends moodleform_mod
 
         //If user is coming back from selecting a media in InfoGuide, create an
         //object holding all the information of the selected media
-        if (isset($_SESSION['dig_title'])  || (isset($_SESSION['dig_manually']) && $_SESSION['dig_manually'] == 1)) {
+        if (isset($_SESSION['dig_title']) || (isset($_SESSION['dig_manually']) && $_SESSION['dig_manually'] == 1)) {
 
             $this->media_data = new stdClass();
 
