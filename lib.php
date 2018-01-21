@@ -42,7 +42,8 @@ function get_libraries() {
         'Bibliothek Brugg-Windisch Pädagogik',
         'Bibliothek Brugg-Windisch Technik',
         'Bibliothek Brugg-Windisch Wirtschaft',
-        'Bibliothek Brugg-Windisch Technik'
+        'Bibliothek Liestal',
+        'Bibliothek Solothurn'
     );
 }
 

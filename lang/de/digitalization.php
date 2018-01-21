@@ -1,5 +1,4 @@
 <?php
-
 // This file is part of Moodle - http://moodle.org/
 //
 // Moodle is free software: you can redistribute it and/or modify
@@ -14,8 +13,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
-
-
 /**
  * German strings for digitalization
  *
@@ -24,47 +21,37 @@
  * @copyright 2011 Patrick Meyer, Tobias Niedl
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
-
 defined('MOODLE_INTERNAL') || die();
-
 //Common module fields
 $string['modulename'] = 'Digit. Semesterapparat';
 $string['modulenameplural'] = 'Digit. Semesterapparate';
-$string['modulename_help'] = 'Bestellen Sie Digitalisate von Zeitschriftenaufsätzen oder Buchkapiteln aus dem Bestand der Universitätsbibliothek. <br>Recherchieren Sie komfortabel im Online-Katalog (OPAC) die Literaturangaben. 
-Dort finden Sie unter \'Bestellen\' den digitalen Semesterapparat und werden via SFX zurück zu Ihrem Moodlekurs geleitet. <br>
-Nach dem Speichern der Literaturangaben scannt die Universitätsbibliothek das Material für Sie. Die PDF-Datei wird automatisch nach wenigen Tagen in Moodle bereitgestellt. <br>
-Weitere Hilfe finden Sie unter <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
+$string['modulename_help'] = 'Bestellen Sie Digitalisate von Zeitschriftenaufsätzen oder Buchkapiteln aus dem Bestand des Bibliotheksverbunds. <br>Recherchieren Sie komfortabel im Online-Katalog (NEBIS) die Literaturangaben und fügen Sie die URL direkt in das entsprechende Feld ein. <br>
+Nach dem Speichern der Literaturangaben scannt die Bibliothek das Material für Sie. Die PDF-Datei wird automatisch nach wenigen Tagen in Ihrem Moodle-Kursraum bereitgestellt. <br>
+Bei Fragen wenden Sie sich bitte an digisem@fhnw.ch.';
 $string['Digitalization'] = 'Digitalisierung';
 $string['pluginadministration'] = 'Administration dig. Sem.Apparat';
 $string['pluginname'] = 'Digitaler Semesterapparat';
-
 //New digitalization activity
 $string['name'] = 'Name';
-$string['name_help'] = 'Geben Sie einen Namen für Ihre Bestellung ein. Für Studenten wird dieser Name als Dateiname des PDFs angezeigt. ';
+$string['name_help'] = 'Geben Sie eine aussagekräftige Bezeichnung für Ihren Artikel ein (z.B. Nachname_Vorname_Jahr__Titel). Für Studierende wird dieser Name als Dateiname des PDFs angezeigt. Sie können den Titel auch jederzeit wieder ändern. ';
 $string['book_specifiers'] = 'Literaturangaben';
-
-$string['import_from_opac'] = 'Daten aus dem OPAC importieren...';
-$string['import_from_opac_help'] = 'Recherchieren Sie komfortabel im Online-Katalog (OPAC) die Literaturangaben. Dort finden Sie unter \'Bestellen\' den digitalen Semesterapparat und werden via SFX zurück zu Ihrem Moodlekurs geleitet.<br> 
-Nach dem Speichern der Literaturangaben scannt die Universitätsbibliothek das Material für Sie. <br>
-Die PDF-Datei wird automatisch nach wenigen Tagen in Moodle bereitgestellt. <br>
-<a href="http://mediatum.ub.tum.de/node?id=1126134">eTutorial zum Digitalen Semesterapparat</a>. <br>
-Weitere Hilfe finden Sie unter <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
-
+$string['import_from_opac'] = 'Daten aus dem Bibliothekskatalog importieren...';
+$string['import_from_opac_help'] = 'Bestellen Sie Digitalisate von Zeitschriftenaufsätzen oder Buchkapiteln aus dem Bestand des Bibliotheksverbunds. <br>Recherchieren Sie komfortabel im Online-Katalog (NEBIS) die Literaturangaben und fügen Sie die URL direkt in das entsprechende Feld ein. <br>
+Nach dem Speichern der Literaturangaben scannt die Bibliothek das Material für Sie. Die PDF-Datei wird automatisch nach wenigen Tagen in Ihrem Moodle-Kursraum bereitgestellt. <br>
+Bei Fragen wenden Sie sich bitte an digisem@fhnw.ch.';
 $string['sign'] = 'Signatur';
 $string['article_title'] = 'Titel des Kapitels/Aufsatzes';
 $string['author'] = 'Autor';
-$string['media_title'] = 'Titel des Buchs/der Zeitschrift';
+$string['media_title'] = 'Titel des Buches/der Zeitschrift';
 $string['date'] = 'Erscheinungsjahr';
 $string['volume'] = 'Band';
 $string['issue'] = 'Heft';
 $string['pages'] = 'Seiten';
 $string['publisher'] = 'Verlag';
 $string['pagecount'] = 'Seitenzahl';
-$string['pages_help'] = 'Bitte beachten Sie, dass gemäß Par.52a UrhG nur kleinere Teile eines Werkes oder einzelne Aufsätze aus Zeitschriften bereitgestellt werden dürfen. <br>
-Weitere Hilfe finden Sie unter <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
+$string['pages_help'] = 'Sie können hier auch mehrere Kapitel aus demselben Buch angeben. Bitte beachten Sie, dass gemäss URG 19 III lit. a nur kleinere Teile eines Werkes oder einzelne Aufsätze aus Zeitschriften bereitgestellt werden dürfen.';
 $string['comment'] = 'Kommentar';
 $string['comment_help'] = 'Geben Sie zusätzliche Informationen zu Ihrer Bestellung ein, die für das Bibliothekspersonal bestimmt sind. ';
-
 $string['header_field_name'] = 'Name';
 $string['header_field_value'] = 'Wert';
 $string['ordered_by'] = 'Besteller';
@@ -76,21 +63,15 @@ $string['issn'] = 'ISSN';
 $string['volume_issue'] = 'Band (Heft)';
 $string['publication_date'] = 'Erscheinungsjahr';
 $string['digitalization_name'] = 'Name';
-
 $string['form_error'] = 'Sie müssen ein Medium aus dem Bibliothekskatalog importieren, aus dem Sie digitalisierte Auszüge bestellen möchten. Bitte klicken Sie im Browser auf \'Zurück\' und importieren Sie Medien-Daten aus dem OPAC der Bibliothek. ';
-
 //View
 $string['permission_error'] = 'Sie haben keine Zugriffsberechtigung für diese Seite! ';
 $string['file_not_found_error'] = 'Die zur Digitalisierung gehörende Datei wurde nicht im Moodle-Dateisystem gefunden! ';
-
 //Bridge
 $string['bridge_title'] = 'Neuer Digitalisierungsauftrag';
-
 $string['bridge_select_text'] = 'Bitte wählen Sie einen Kurs aus, zu dem Sie das bestellte Dokument hinzufügen möchten. ';
 $string['bridge_submit'] = ' Weiter ';
-
-$string['bridge_error_course_permission'] = 'Sie besitzten für keinen Kurs die nötigen Rechte zum editieren. ';
-
+$string['bridge_error_course_permission'] = 'Sie besitzen für keinen Kurs die nötigen Rechte zum editieren. ';
 //Configuration
 $string['ftp_config'] = 'FTP- und Dateikonfiguration';
 $string['ftp_config_desc'] = 'Das Modul lädt fertige Digitalisierungen von einem FTP-Server herunter. Die Einstellungen für den FTP-Server können in den folgenden Feldern vorgenommen werden. ';
@@ -109,7 +90,6 @@ $string['ftp_dir_desc'] = 'Insert the name of the directory from the root node o
 $string['ftp_dir_desc'] = 'Geben Sie das Root-Verzeichnis für den angegebenen Login-Namen auf dem FTP-Server ein. Pfadangaben müssen mit einem / enden. Lassen Sie das Feld leer, wenn das Basisverzeichnis auf dem FTP-Server genutzt werden soll. ';
 $string['filearea'] = 'Verzeichnisbereich';
 $string['filearea_desc'] = 'Moodle nutzt in seinem Dateisystem sog. Verzeichnisbereiche (engl. \'fileareas\'). Wenn Sie mit diesem Konzept vertraut sind, erzeugen Sie ein Verzeichnis modledata/temp im dem Moodle die heruntergeladenen Dateien temporär speichern kann. Lassen Sie das Feld im Zweifelsfall leer oder geben Sie \'content\' ein. ';
-
 $string['mail_config'] = 'E-Mail- Bestelleinstellungen';
 $string['mail_config_desc'] = 'Wenn ein Trainer einen Digitalisierungsauftrag für einen seiner Kurse erstellt, muss ein entsprechender Auftrag per E-Mail an die Bibliothek geschickt werden. ';
 $string['order_mail'] = 'E-Mail-Adresse für Bestellungen';
@@ -118,10 +98,8 @@ $string['sender_sign'] = 'Absender der Bestell-E-Mails';
 $string['sender_sign_desc'] = 'Dieser Name erscheint als Absender für Bestellungen aus dem Moodle-System. ';
 $string['mail_subject'] = 'E-Mail Betreff';
 $string['mail_subject_desc'] = 'Der eingegebene Text erscheint als Betreff in den Bestellungen aus dem Moodle-System. ';
-
 $string['opac_url'] = 'OPAC URL';
 $string['opac_url_desc'] = 'Trainer werden zu dieser URL weitergeleitet, wenn Sie Medien im Bibliotheksbestand recherchieren möchten. ';
-
 $string['delivery_config'] = 'Medienlieferung';
 $string['delivery_config_desc'] = '';
 $string['delivery_send_mail'] = 'E-Mail an Benutzer senden';
@@ -130,20 +108,16 @@ $string['delivery_email_sender'] = 'Absender der E-Mail';
 $string['delivery_email_sender_desc'] = '';
 $string['delivery_email_attach_details'] = 'Bestelldetails mitsenden';
 $string['delivery_email_attach_details_desc'] = 'Details der Bestellung wie Name, Titel, Autor, etc. in der Benachrichtigung mitsenden.';
-
-$string['delivery_email_subject'] = 'TUM/MOODLE: Digitalisierung abgeschlossen';
-$string['delivery_email_body'] = 'Ihr Digitalisierungsauftrag wurde abgeschlossen und das bestellte Medium in Moodle eingebunden. ';
-
+$string['delivery_email_subject'] = 'Moodle: Digitalisierung abgeschlossen';
+$string['delivery_email_body'] = 'Ihr Digitalisierungsauftrag wurde abgeschlossen und das bestellte Medium in Moodle eingebunden. Bitte antworten Sie nicht auf diese E-Mail. ';
 $string['view_error'] = "Dieses Dokument steht im Moment nicht zur Verf&uuml;gung. ";
-$string['library_url'] = 'Bibliothek-URL';
-$string['library_url_help'] = 'Vollständige URL des bestellten Werkes. Die Suchadresse: http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic';
-$string['load_order_info'] = 'Die Informationen laden';
-$string['enter_manually'] = 'Bestellinformationen manuell eingeben';
+$string['library_url'] = 'URL/Link des Buches';
+$string['library_url_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil rechts gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Die Informationen laden". ';
+$string['load_order_info'] = 'Buchdetails laden';
 $string['load_order_info_help'] = 'Die Informationen über das bestellte Werk laden';
 $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
-$string['libraries_select'] = 'Wählen Sie Ihre Bibliothek';
-$string['library'] = 'Bibliothek';
-$string['library_url_or_manually'] = 'Geben Sie entweder eine Bibliothek-URL ein oder benutzen Sie manuelle Datenenigabe';
+$string['libraries_select'] = 'Stammbibliothek auswählen:';
+$string['enter_manually'] = 'Buchdetails manuell eingeben';
 $string['failed_to_load_url'] = 'Kann die URL nicht laden {$a->url} (Status {$a->status}).';
 ?>
