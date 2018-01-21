@@ -139,6 +139,7 @@ $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';
 $string['libraries_select'] = 'Choose the library';
 $string['library'] = 'Library';
+$string['back_to_automatic'] = 'Back to library URL entry';
 $string['library_url_or_manually'] = 'Either supply a library URL or use manual data entering';
 $string['failed_to_load_url'] = 'Unable to load url {$a->url} (status {$a->status}).';
 ?>

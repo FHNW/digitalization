@@ -72,12 +72,17 @@ function digitalization_add_instance($digitalization)
         $_SESSION['dig_library'] = $digitalization->library;
         $_SESSION['dig_manually'] = 1;
         redirect($PAGE->url);
+    } elseif (isset($digitalization->back_to_automatic)) {
+        $_SESSION['dig_manually'] = 0;
+        digitalization_helper_clear_session(/*full*/false);
+        redirect($PAGE->url);
     } elseif (isset($digitalization->library_url)) {
         digitalization_helper_parse_page($digitalization->library_url);
         $_SESSION['dig_name'] = $digitalization->name;
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
         $_SESSION['dig_library'] = $digitalization->library;
+        $_SESSION['dig_library_url'] = $digitalization->library_url;
         redirect($PAGE->url);
     } else {
         //Extend the given digitalization object:
@@ -682,11 +687,16 @@ function digitalization_helper_create_order_id_for($id)
  * @param  void
  * @return void
  */
-function digitalization_helper_clear_session()
+function digitalization_helper_clear_session($full=True)
 {
-    unset($_SESSION['dig_name']);
-    unset($_SESSION['dig_course_id']);
-    unset($_SESSION['dig_section']);
+    if ($full) {
+        unset($_SESSION['dig_name']);
+        unset($_SESSION['dig_course_id']);
+        unset($_SESSION['dig_section']);
+        unset($_SESSION['dig_manually']);
+        unset($_SESSION['dig_library']);
+        unset($_SESSION['dig_library_url']);
+    }
 
     unset($_SESSION['dig_sign']);
     unset($_SESSION['dig_title']);
@@ -702,8 +712,6 @@ function digitalization_helper_clear_session()
     unset($_SESSION['dig_isbn']);
     unset($_SESSION['dig_publisher']);
     unset($_SESSION['dig_pagecount']);
-    unset($_SESSION['dig_library']);
-    unset($_SESSION['dig_manually']);
 }
 
 

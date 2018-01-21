@@ -119,5 +119,7 @@ $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
 $string['libraries_select'] = 'Stammbibliothek auswählen:';
 $string['enter_manually'] = 'Buchdetails manuell eingeben';
+$string['back_to_automatic'] = 'Zurück zur Bibliotheken-URL-Eingabe';
+$string['library_url_or_manually'] = 'Bitte geben Sie entweder eine Bibliotheken-URL oder wählen Sie manuelle Eingabe';
 $string['failed_to_load_url'] = 'Kann die URL nicht laden {$a->url} (Status {$a->status}).';
 ?>

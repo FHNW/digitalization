@@ -52,13 +52,10 @@ class mod_digitalization_mod_form extends moodleform_mod
         global $PAGE, $COURSE;
         $mform =& $this->_form;
 
-        //If user is coming back from selecting a media in InfoGuide,
-        //store the media information in an seperate object ($media_data)
-        $this->set_media_data();
+        $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
 
         //Adding the "general" fieldset, where all the common settings are displayed
         $mform->addElement('header', 'general', get_string('general', 'form'));
-
 
         //Adding the standard "name" field
         $name_attributes = array('size' => '45');
@@ -87,6 +84,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->setDefault('library', $_SESSION['dig_library']);
         }
 
+
         $this->set_media_data();
         if ($this->media_data == null) {
 
@@ -97,8 +95,10 @@ class mod_digitalization_mod_form extends moodleform_mod
 
             //As the SUBMIT-element does not support adding a help button, we pack the button into a element group
             //and add the help button to the group.
-            $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
             $mform->addElement('text', 'library_url', get_string('library_url', 'digitalization'));
+            if (isset($_SESSION['dig_library_url'])) {
+                $mform->setDefault('library_url', $_SESSION['dig_library_url']);
+            }
             $mform->addHelpButton('library_url', 'library_url', 'digitalization');
 //            $mform->addRule('library_url', null, 'required', null, 'client');
             $mform->setType('library_url', PARAM_URL);
@@ -112,12 +112,6 @@ class mod_digitalization_mod_form extends moodleform_mod
 
 
         } else {
-
-
-            /*
-                 * If user was relocated to the form after selecting a book/journal in
-             * InfoGuide, show the meta data of the ordered media (as static text).
-             */
 
             //Author
             $mform->addElement('text', 'author', get_string('author', 'digitalization'));
@@ -170,8 +164,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->addHelpButton('dig_comment', 'comment', 'digitalization');
             $mform->setType('dig_comment', PARAM_TEXT);
 
-            // cleanup after rendering
-            // digitalization_helper_clear_session();
+            $mform->addElement('submit', 'back_to_automatic', get_string('back_to_automatic', 'digitalization'));
         }
 
         //Add standard elements, common to all modules
@@ -215,7 +208,7 @@ class mod_digitalization_mod_form extends moodleform_mod
 
         //If user is coming back from selecting a media in InfoGuide, create an
         //object holding all the information of the selected media
-        if (isset($_SESSION['dig_title']) || isset($_SESSION['dig_manually'])) {
+        if (isset($_SESSION['dig_title'])  || (isset($_SESSION['dig_manually']) && $_SESSION['dig_manually'] == 1)) {
 
             $this->media_data = new stdClass();
 
@@ -270,6 +263,13 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $this->media_data->identifier = $_SESSION['dig_identifier'];
             } else {
                 $this->media_data->identifier = '';
+            }
+
+            // library url
+            if (isset($_SESSION['dig_library_url']) && $_SESSION['dig_library_url'] != '') {
+                $this->media_data->library_url = $_SESSION['dig_library_url'];
+            } else {
+                $this->media_data->library_url = '';
             }
         }
     }
