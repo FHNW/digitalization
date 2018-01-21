@@ -141,6 +141,7 @@ $string['libraries_select'] = 'Choose the library';
 $string['library'] = 'Library';
 $string['back_to_automatic'] = 'Back to library URL entry';
 $string['library_url_or_manually'] = 'Either supply a library URL or use manual data entering';
+$string['invalid_library_url'] = 'Couldnot parse the information on the library page. Please check the library URL or use the manual entry';
 $string['failed_to_load_url'] = 'Unable to load url {$a->url} (status {$a->status}).';
 ?>
 

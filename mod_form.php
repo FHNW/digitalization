@@ -102,6 +102,11 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->addHelpButton('library_url', 'library_url', 'digitalization');
 //            $mform->addRule('library_url', null, 'required', null, 'client');
             $mform->setType('library_url', PARAM_URL);
+            if (isset($_SESSION['dig_found_any']) && $_SESSION['dig_found_any'] == False) {
+                $mform->addElement('html', '<div class="form-group row has-danger">'.
+                '<div class="col-md-3"></div><div class="col-md-9 form-control-feedback">- ' .
+                    get_string('invalid_library_url', 'digitalization') .'</div></div>');
+            }
 
             $elementsArray = array();
             array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));

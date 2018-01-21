@@ -121,5 +121,6 @@ $string['libraries_select'] = 'Stammbibliothek auswählen:';
 $string['enter_manually'] = 'Buchdetails manuell eingeben';
 $string['back_to_automatic'] = 'Zurück zur Bibliotheken-URL-Eingabe';
 $string['library_url_or_manually'] = 'Bitte geben Sie entweder eine Bibliotheken-URL oder wählen Sie manuelle Eingabe';
+$string['invalid_library_url'] = 'Konnte keine Informationen aus der URL extrahieren. Bitte überprüfen Sie die URL oder benutzen Sie die manuelle Eingabe.';
 $string['failed_to_load_url'] = 'Kann die URL nicht laden {$a->url} (Status {$a->status}).';
 ?>

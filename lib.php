@@ -712,6 +712,11 @@ function digitalization_helper_clear_session($full=True)
     unset($_SESSION['dig_isbn']);
     unset($_SESSION['dig_publisher']);
     unset($_SESSION['dig_pagecount']);
+    unset($_SESSION['dig_found_any']);
+//    unset($_SESSION['dig_type']);
+//    unset($_SESSION['dig_language']);
+//    unset($_SESSION['dig_scope']);
+//    unset($_SESSION['dig_stock']);
 }
 
 
@@ -766,6 +771,7 @@ function digitalization_helper_parse_page($library_url)
 
     if (curl_error($c)) {
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        $_SESSION['dig_found_any'] = 0;
         print_error(get_string('failed_to_load_url', 'digitalization', array(url => $library_url, status => $status)));
 
     }
@@ -773,9 +779,11 @@ function digitalization_helper_parse_page($library_url)
     libxml_use_internal_errors(true);
     $dom->loadHTML($html);
     $xpath = new DOMXPath($dom);
-    $get_attribute = function ($name) use ($xpath) {
+    $found_any = False;
+    $get_attribute = function ($name) use ($xpath, &$found_any) {
         $objs = $xpath->query("//form[@name='detailsForm']//strong[contains(text(), '$name:')]/following-sibling::*//text()");
         if ($objs->length !== 0) {
+            $found_any = True;
             $acc = $objs[0]->textContent;
             for($i=1; $i<$objs->length; ++$i) {
                 $acc .= " " . $objs[$i]->textContent;
@@ -789,8 +797,14 @@ function digitalization_helper_parse_page($library_url)
     $_SESSION['dig_publisher'] = $get_attribute('Ort, Verlag');
     $_SESSION['dig_date'] = $get_attribute('Erscheinungsdatum');
     $_SESSION['dig_identifier'] = $get_attribute('Identifikator');
-    $_SESSION['language'] = $get_attribute('Sprache');
-    $_SESSION['type'] = $get_attribute('Typ');
-    $_SESSION['scope'] = $get_attribute('Umfang');
-    $_SESSION['stock'] = $get_attribute('Bestand');
+    if ($found_any == False) {
+        digitalization_helper_clear_session(false);
+        $_SESSION['dig_found_any'] = $found_any;
+
+    }
+
+//    $_SESSION['dig_language'] = $get_attribute('Sprache');
+//    $_SESSION['dig_type'] = $get_attribute('Typ');
+//    $_SESSION['dig_scope'] = $get_attribute('Umfang');
+//    $_SESSION['dig_stock'] = $get_attribute('Bestand');
 }
