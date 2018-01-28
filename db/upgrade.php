@@ -86,6 +86,18 @@ function xmldb_digitalization_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2017072702, 'digitalization');
     }
 
+    if ($oldversion < 2018012801) {
+        $table = new xmldb_table('digitalization');
+        $atitle = new xmldb_field('atitle', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        $title = new xmldb_field('title', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        $author = new xmldb_field('author', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        $dbman->change_field_type($table, $atitle);
+        $dbman->change_field_type($table, $title);
+        $dbman->change_field_type($table, $author);
+
+        upgrade_mod_savepoint(true, 2018012801, 'digitalization');
+    }
+
 /// And that's all. Please, examine and understand the 3 example blocks above. Also
 /// it's interesting to look how other modules are using this script. Remember that
 /// the basic idea is to have "blocks" of code (each one being executed only once,
