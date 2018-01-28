@@ -118,6 +118,7 @@ function digitalization_add_instance($digitalization)
         if (!isset($digitalization->pagecount)) {
             $digitalization->pagecount = '';
         }
+        $digitalization->library_url = $_SESSION['dig_library_url'];
 
 
         //Insert the digitalization order to the database
@@ -582,7 +583,7 @@ function digitalization_pluginfile($course, $cm, $context, $filearea, $args, $fo
  */
 function digitalization_helper_send_order($digitalization)
 {
-    global $CFG;
+    global $CFG, $DB;
 
 
     // Set configurations for the order email
@@ -631,6 +632,7 @@ function digitalization_helper_send_order($digitalization)
 
     //Step 1: Create email-body
     $email_body = 'Dateibezeichnung für FTP: ' . digitalization_helper_create_order_id_for($digitalization->id) . '
+URL Bibliothekskatalog: ' . $digitalization->library_url . '
 Mailadresse Besteller: ' . $digitalization->useremail . '
 Name Besteller: ' . $digitalization->username . '
 Kurs: ' . $course->fullname . '
@@ -724,6 +726,11 @@ function digitalization_helper_clear_session($full=True)
 
 function digitalization_helper_render_information($digitalization, $course, $user_object)
 {
+    if (strlen($digitalization->library_url) > 30) {
+        $truncated_library_url = substr($digitalization->library_url, 0, 30) . '...';
+    } else {
+        $truncated_library_url = $digitalization->library_url;
+    }
     return '
 <table>
 <thead>
@@ -754,6 +761,10 @@ function digitalization_helper_render_information($digitalization, $course, $use
 <tr>
 <td><p>' . get_string('library', 'digitalization') . '</p></td>
 <td><p>' . get_libraries()[$digitalization->library] . '</p></p></td>
+</tr>
+<tr>
+<td><p>' . get_string('library_url', 'digitalization') . '</p></td>
+<td><p><a href="' . $digitalization->library_url . '">'. $truncated_library_url . '</a></p></p></td>
 </tr>
 <tr>
 <td><p>' . get_string('author', 'digitalization') . '</p></td>

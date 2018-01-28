@@ -39,7 +39,8 @@ defined('MOODLE_INTERNAL') || die();
  * @param int $oldversion
  * @return bool
  */
-function xmldb_digitalization_upgrade($oldversion) {
+function xmldb_digitalization_upgrade($oldversion)
+{
 
     global $DB;
 
@@ -70,7 +71,7 @@ function xmldb_digitalization_upgrade($oldversion) {
 /// PHP generation posibilities.
 
     if ($oldversion < 2011082400) {
-    	// nothing to do
+        // nothing to do
     }
 
     if ($oldversion < 2017072700) {
@@ -100,16 +101,16 @@ function xmldb_digitalization_upgrade($oldversion) {
         upgrade_mod_savepoint(true, 2018012802, 'digitalization');
     }
 
-/// And that's all. Please, examine and understand the 3 example blocks above. Also
-/// it's interesting to look how other modules are using this script. Remember that
-/// the basic idea is to have "blocks" of code (each one being executed only once,
-/// when the module version (version.php) is updated.
+    if ($oldversion < 2018012806) {
+        $table = new xmldb_table('digitalization');
+        $library_url = new xmldb_field('library_url', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        if (!$dbman->field_exists($table, $library_url)) {
+            $dbman->add_field($table, $library_url);
+        }
+        upgrade_mod_savepoint(true, 2018012806, 'digitalization');
+    }
 
-/// Lines above (this included) MUST BE DELETED once you get the first version of
-/// yout module working. Each time you need to modify something in the module (DB
-/// related, you'll raise the version and add one upgrade block here.
-
-/// Final return of upgrade result (true, all went good) to Moodle.
     return true;
 }
+
 ?>
