@@ -84,7 +84,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->addHelpButton('name', 'name', 'digitalization');
 
             //Frame for fields
-            $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
+//            $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
 
             // library
             $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
