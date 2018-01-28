@@ -111,6 +111,7 @@ $string['delivery_email_attach_details_desc'] = 'Details der Bestellung wie Name
 $string['delivery_email_subject'] = 'Moodle: Digitalisierung abgeschlossen';
 $string['delivery_email_body'] = 'Ihr Digitalisierungsauftrag wurde abgeschlossen und das bestellte Medium in Moodle eingebunden. Bitte antworten Sie nicht auf diese E-Mail. ';
 $string['view_error'] = "Dieses Dokument steht im Moment nicht zur Verf&uuml;gung. ";
+$string['library'] = 'Bibliothek';
 $string['library_url'] = 'URL/Link des Buches';
 $string['library_url_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil rechts gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Die Informationen laden". ';
 $string['load_order_info'] = 'Buchdetails laden';
