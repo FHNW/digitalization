@@ -58,6 +58,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
             $digitalization = $DB->get_record('digitalization', array('id' => $cm->instance), '*', MUST_EXIST);
             $user_object = $DB->get_record('user', array('id' => $USER->id));
+            $mform->addElement('header', 'book_specifieers', get_string('book_specifiers', 'digitalization'));
             $mform->addElement('html', digitalization_helper_render_information($digitalization, $course, $user_object));
         } else {
 
@@ -83,8 +84,6 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
             $mform->addHelpButton('name', 'name', 'digitalization');
 
-            //Frame for fields
-//            $mform->addElement('header', 'book_specifiers', get_string('book_specifiers', 'digitalization'));
 
             // library
             $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());

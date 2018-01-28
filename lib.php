@@ -789,10 +789,6 @@ function digitalization_helper_render_information($digitalization, $course, $use
 <td><p>' . $digitalization->publisher . '</p></p></td>
 </tr>
 <tr>
-<td><p>' . get_string('pagecount', 'digitalization') . '</p></td>
-<td><p>' . $digitalization->pagecount . '</p></p></td>
-</tr>
-<tr>
 <td><p>' . get_string('sign', 'digitalization') . '</p></td>
 <td><p>' . $digitalization->sign . '</p></p></td>
 </tr>
