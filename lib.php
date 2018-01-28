@@ -624,23 +624,26 @@ function digitalization_helper_send_order($digitalization)
         'search-type' => ''
     );
 
+    // get digitalization course
+    $courseid = $digitalization->course;
+    $course = $DB->get_record('course', array('id' => $courseid));
+
 
     //Step 1: Create email-body
-    $email_body = 'message-type: REQUEST
-transaction-group-qualifier: ' . digitalization_helper_create_order_id_for($digitalization->id) . '
-del-email-address: ' . $digitalization->useremail . '
-del-postal-name-of-person-or-institution: ' . $digitalization->username . '
-item-type: OTHER
-item-library: ' . get_libraries()[$digitalization->library] . '
-item-title: ' . $digitalization->title . '
-item-volume-issue: ' . $digitalization->volume . ' (' . $digitalization->issue . ')
-item-publication-date: ' . $digitalization->pub_date . '
-item-author-of-article: ' . $digitalization->author . '
-item-title-of-article: ' . $digitalization->atitle . '
-item-pagination: ' . $digitalization->pages . '
-item-identifier: ' . $digitalization->identifier . '
-item-publisher: ' . $digitalization->publisher . '
-requester-note: ' . $digitalization->dig_comment . '
+    $email_body = 'Dateibezeichnung für FTP: ' . digitalization_helper_create_order_id_for($digitalization->id) . '
+Mailadresse Besteller: ' . $digitalization->useremail . '
+Name Besteller: ' . $digitalization->username . '
+Kurs: ' . $course->fullname . '
+Stammbibliothek: ' . get_libraries()[$digitalization->library] . '
+Autor: ' . $digitalization->author . '
+Titel des Buches/Zeitschrift: ' . $digitalization->title . '
+Titel des Kapitels: ' . $digitalization->atitle . '
+Erscheinungsjahr: ' . $digitalization->pub_date . '
+Seiten: ' . $digitalization->pages . '
+Band (Heft): ' . $digitalization->volume . ' (' . $digitalization->issue . ')
+ISSN / ISBN: ' . $digitalization->identifier . '
+Verlag: ' . $digitalization->publisher . '
+Kommentar: ' . $digitalization->dig_comment . '
 ';
 
 
@@ -820,9 +823,8 @@ function digitalization_helper_send_delivery($receiver_email, $digitalization = 
     if ($CFG->digitalization_delivery_attach_details && $digitalization != null) {
         $order_details = "\n\n";
         $order_details .= get_string('name', 'digitalization') . ': ' . $digitalization->name . "\n";
-        $order_details .= get_string('sign', 'digitalization') . ': ' . $digitalization->sign . "\n";
-        $order_details .= get_string('article_title', 'digitalization') . ': ' . $digitalization->atitle . "\n";
         $order_details .= get_string('author', 'digitalization') . ': ' . $digitalization->author . "\n";
+        $order_details .= get_string('article_title', 'digitalization') . ': ' . $digitalization->atitle . "\n";
         $order_details .= get_string('media_title', 'digitalization') . ': ' . $digitalization->title . "\n";
     } else {
         $order_details = '';
