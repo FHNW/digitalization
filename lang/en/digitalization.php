@@ -73,6 +73,8 @@ $string['publication_date'] = 'Year of publication';
 $string['digitalization_name'] = 'Name of digitization';
 
 $string['form_error'] = 'You have to import the medium of which you would like to order digitalizized extracts from the library catalogue. Please navigate back to the form and select a library item from the OPAC library system. ';
+$string['send_order'] = 'Send order';
+$string['warning_submit_order'] = 'Caution! Your order will be submitted and can not be changed afterwards!';
 
 //View
 $string['permission_error'] = 'You do not have access permissions to view this page.';
@@ -131,9 +133,8 @@ $string['delivery_email_body'] = 'Your digitalization order is completed and the
 
 $string['view_error'] = 'This document is temporarily not available.';
 $string['library_url'] = 'Library URL';
-$string['library_url_help'] = 'Full URL of the library web page with the document to be ordered. Start search at http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic';
 $string['load_order_info'] = 'Load document information';
-$string['load_order_info_help'] = 'Load document information from the library page';
+$string['load_order_info_help'] = 'Full URL of the library web page with the document to be ordered. Start search at http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic\'';
 $string['enter_manually'] = 'Enter the order data manually';
 $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';

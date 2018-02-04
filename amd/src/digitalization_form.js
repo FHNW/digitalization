@@ -1,4 +1,4 @@
-define(['jquery'], function($) {
+define(['core/str', 'jquery'], function(str, $) {
     var NEBIS_URL = 'http://recherche.nebis.ch/';
     var module = {
         init: function() {
@@ -18,6 +18,17 @@ define(['jquery'], function($) {
                     }
                 });
             });
+
+            var warningPresent = str.get_string('warning_submit_order', 'digitalization');
+            $.when(warningPresent).done(function(warningString) {
+                $('#id_submitbutton2')
+                    .attr('data-toggle', 'tooltip')
+                    .attr('title', warningString)
+                    .tooltip({
+                        placement: 'top'
+                    });
+            });
+
         }
     };
     return module;

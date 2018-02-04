@@ -103,12 +103,10 @@ class mod_digitalization_mod_form extends moodleform_mod
 
                 //As the SUBMIT-element does not support adding a help button, we pack the button into a element group
                 //and add the help button to the group.
-                $mform->addElement('text', 'library_url', get_string('library_url', 'digitalization'));
+                $library_url_field = $mform->createElement('text', 'library_url', get_string('library_url', 'digitalization'));
                 if (isset($_SESSION['dig_library_url'])) {
                     $mform->setDefault('library_url', $_SESSION['dig_library_url']);
                 }
-                $mform->addHelpButton('library_url', 'library_url', 'digitalization');
-//            $mform->addRule('library_url', null, 'required', null, 'client');
                 $mform->setType('library_url', PARAM_URL);
                 if (isset($_SESSION['dig_found_any']) && $_SESSION['dig_found_any'] == False) {
                     $mform->addElement('html', '<div class="form-group has-danger felement ftext error">' .
@@ -117,6 +115,7 @@ class mod_digitalization_mod_form extends moodleform_mod
                 }
 
                 $elementsArray = array();
+                array_push($elementsArray, $library_url_field);
                 array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));
                 $mform->addGroup($elementsArray, 'import_from_opac_group', '', array(' '), false);
                 $mform->addHelpButton('import_from_opac_group', 'load_order_info', 'digitalization');
@@ -194,8 +193,7 @@ class mod_digitalization_mod_form extends moodleform_mod
 
 
         //Add standard buttons, common to all modules
-        //$this->add_action_buttons(true, false, null);
-        $this->add_action_buttons();
+        $this->add_action_buttons(true, false, get_string('send_order', 'digitalization'));
 
     }
 

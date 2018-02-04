@@ -3,7 +3,8 @@
     height: 31px;
     width: 31px;
     vertical-align: bottom;
-    margin-left: 4px;
+    margin-left: 6px;
+    margin-bottom: 4px;
     background-image: url([[pix:mod_digitalization|open_new_tab]]);
     background-repeat: no-repeat;
 }
