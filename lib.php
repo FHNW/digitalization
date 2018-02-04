@@ -65,6 +65,8 @@ function digitalization_add_instance($digitalization)
     // 1. When the "Import Metadata from OPAC"-Button is clicked
     // 2. When one of the "Save"-Buttons is clicked
 
+    // reset errors
+    $_SESSION['dig_errors'] = false;
     if (isset($digitalization->enter_manually)) {
         $_SESSION['dig_name'] = $digitalization->name;
         $_SESSION['dig_course_id'] = $digitalization->course;
@@ -717,7 +719,7 @@ function digitalization_helper_clear_session($full=True)
     unset($_SESSION['dig_isbn']);
     unset($_SESSION['dig_publisher']);
     unset($_SESSION['dig_pagecount']);
-    unset($_SESSION['dig_found_any']);
+    unset($_SESSION['dig_errors']);
 //    unset($_SESSION['dig_type']);
 //    unset($_SESSION['dig_language']);
 //    unset($_SESSION['dig_scope']);
@@ -864,9 +866,8 @@ function digitalization_helper_parse_page($library_url)
 
     if (curl_error($c)) {
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
-        $_SESSION['dig_found_any'] = 0;
-        print_error(get_string('failed_to_load_url', 'digitalization', array(url => $library_url, status => $status)));
-
+        $_SESSION['dig_errors'] = get_string('failed_to_load_url', 'digitalization', array("status" => $status));
+        return;
     }
     $dom = new DOMDocument;
     libxml_use_internal_errors(true);
@@ -892,7 +893,7 @@ function digitalization_helper_parse_page($library_url)
     $_SESSION['dig_identifier'] = $get_attribute('Identifikator');
     if ($found_any == False) {
         digitalization_helper_clear_session(false);
-        $_SESSION['dig_found_any'] = $found_any;
+        $_SESSION['dig_errors'] = get_string('invalid_library_url', 'digitalization');
 
     }
 
