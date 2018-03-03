@@ -35,10 +35,8 @@ $string['pluginname'] = 'Digitaler Semesterapparat';
 $string['name'] = 'Name';
 $string['name_help'] = 'Geben Sie eine aussagekräftige Bezeichnung für Ihren Artikel ein (z.B. Nachname_Vorname_Jahr__Titel). Für Studierende wird dieser Name als Dateiname des PDFs angezeigt. Sie können den Titel auch jederzeit wieder ändern. ';
 $string['book_specifiers'] = 'Literaturangaben';
-$string['import_from_opac'] = 'Daten aus dem Bibliothekskatalog importieren...';
-$string['import_from_opac_help'] = 'Bestellen Sie Digitalisate von Zeitschriftenaufsätzen oder Buchkapiteln aus dem Bestand des Bibliotheksverbunds. <br>Recherchieren Sie komfortabel im Online-Katalog (NEBIS) die Literaturangaben und fügen Sie die URL direkt in das entsprechende Feld ein. <br>
-Nach dem Speichern der Literaturangaben scannt die Bibliothek das Material für Sie. Die PDF-Datei wird automatisch nach wenigen Tagen in Ihrem Moodle-Kursraum bereitgestellt. <br>
-Bei Fragen wenden Sie sich bitte an digisem@fhnw.ch.';
+$string['import_from_opac_group'] = 'Daten aus dem Bibliothekskatalog importieren.';
+$string['import_from_opac_group_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk, gehen Sie in die Detailansicht und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Buchdetails laden"';
 $string['sign'] = 'Signatur';
 $string['article_title'] = 'Titel des Kapitels/Aufsatzes';
 $string['author'] = 'Autor';
@@ -116,7 +114,6 @@ $string['view_error'] = "Dieses Dokument steht im Moment nicht zur Verf&uuml;gun
 $string['library'] = 'Bibliothek';
 $string['library_url'] = 'URL/Link des Buches';
 $string['load_order_info'] = 'Buchdetails laden';
-$string['load_order_info_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk, gehen Sie in die Detailansicht und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Buchdetails laden"';
 $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
 $string['libraries_select'] = 'Stammbibliothek auswählen:';

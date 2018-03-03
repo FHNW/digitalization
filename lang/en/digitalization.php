@@ -41,9 +41,8 @@ $string['pluginname'] = 'Digitalization';
 $string['name'] = 'Name';
 $string['name_help'] = 'Type in the name for your order. Students will see this name as the filename for the resulting PDF document.';
 $string['book_specifiers'] = 'Book metadata';
-$string['import_from_opac'] = 'Import Metadata from OPAC';
-$string['import_from_opac_help'] = 'On click you are referred to the TUM online library system. There you can search for the book metadata and import these via the \'Vollanzeige\' and the SFX-button to Moodle. <br>
-For more information see <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
+$string['import_from_opac_group'] = 'Import data from library catalog.';
+$string['import_from_opac_group_help'] = 'Full URL of the library web page with the document to be ordered. Start search at http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic';
 
 $string['sign'] = 'Signature';
 $string['article_title'] = 'Title of the chapter or article';
@@ -134,7 +133,6 @@ $string['delivery_email_body'] = 'Your digitalization order is completed and the
 $string['view_error'] = 'This document is temporarily not available.';
 $string['library_url'] = 'Library URL';
 $string['load_order_info'] = 'Load document information';
-$string['load_order_info_help'] = 'Full URL of the library web page with the document to be ordered. Start search at http://recherche.nebis.ch/primo_library/libweb/action/search.do?mode=Basic\'';
 $string['enter_manually'] = 'Enter the order data manually';
 $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';

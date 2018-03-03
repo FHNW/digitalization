@@ -29,6 +29,16 @@ define(['core/str', 'jquery'], function(str, $) {
                     });
             });
 
+            var helpPresent = str.get_string('import_from_opac_group_help', 'digitalization');
+            $.when(helpPresent).done(function(helpString) {
+                $('#id_load_order_info')
+                    .attr('data-toggle', 'tooltip')
+                    .attr('title', helpString)
+                    .tooltip({
+                        placement: 'right'
+                    });
+            });
+
         }
     };
     return module;
