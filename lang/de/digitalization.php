@@ -65,7 +65,7 @@ $string['publication_date'] = 'Erscheinungsjahr';
 $string['digitalization_name'] = 'Name';
 $string['form_error'] = 'Sie müssen ein Medium aus dem Bibliothekskatalog importieren, aus dem Sie digitalisierte Auszüge bestellen möchten. Bitte klicken Sie im Browser auf \'Zurück\' und importieren Sie Medien-Daten aus dem OPAC der Bibliothek. ';
 $string['send_order'] = 'Bestellung absenden';
-$string['warning_submit_order'] = 'Bitte beachten Sie, dass mit dem Klick wird die Bestellung abgesendet wird!';
+$string['warning_submit_order'] = 'Bitte beachten Sie, dass mit dem Klick die Bestellung abgesendet wird!';
 //View
 $string['permission_error'] = 'Sie haben keine Zugriffsberechtigung für diese Seite! ';
 $string['file_not_found_error'] = 'Die zur Digitalisierung gehörende Datei wurde nicht im Moodle-Dateisystem gefunden! ';
@@ -116,7 +116,7 @@ $string['view_error'] = "Dieses Dokument steht im Moment nicht zur Verf&uuml;gun
 $string['library'] = 'Bibliothek';
 $string['library_url'] = 'URL/Link des Buches';
 $string['load_order_info'] = 'Buchdetails laden';
-$string['load_order_info_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil rechts gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Die Informationen laden".';
+$string['load_order_info_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk, gehen Sie in die Detailansicht und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Buchdetails laden"';
 $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
 $string['libraries_select'] = 'Stammbibliothek auswählen:';
