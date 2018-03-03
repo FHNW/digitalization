@@ -123,9 +123,8 @@ class mod_digitalization_mod_form extends moodleform_mod
                 }
                 $mform->setType('library_url', PARAM_URL);
                 if (isset($_SESSION['dig_errors']) && $_SESSION['dig_errors'] != false) {
-                    $mform->addElement('html', '<div class="form-group has-danger felement ftext error">' .
-                        '<div class="form-control-feedback form-item">- ' . $_SESSION['dig_errors']
-                        . '</div></div>');
+                    $mform->addElement('html',
+                    '<div class="felement ftext error"><span ' . 'class="error" tabindex="0">' . $_SESSION['dig_errors'] .'</span></div>');
                 }
 
                 $elementsArray = array();
