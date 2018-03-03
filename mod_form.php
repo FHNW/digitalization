@@ -46,6 +46,20 @@ class mod_digitalization_mod_form extends moodleform_mod
     // inidicates than the order data was already parsed
     private $done = false;
 
+    private function render_name_field() {
+        $mform =& $this->_form;
+
+        //Adding the standard "name" field
+        $name_attributes = array('size' => '45');
+        if (isset($_SESSION['dig_name']) && $_SESSION['dig_name'] != '') {
+            $name_attributes['value'] = $_SESSION['dig_name'];
+        } else {
+            $name_attributes['value'] = '';
+        }
+        $mform->addElement('text', 'name', get_string('name', 'digitalization'), $name_attributes);
+        $mform->setType('name', PARAM_TEXT);
+    }
+
     function definition()
     {
 
@@ -54,12 +68,21 @@ class mod_digitalization_mod_form extends moodleform_mod
 
         // if the module is already created don't allow any editing
         if ($this->get_coursemodule() != null) {
+
+            $this->render_name_field();
             $cm = $this->get_coursemodule();
             $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
             $digitalization = $DB->get_record('digitalization', array('id' => $cm->instance), '*', MUST_EXIST);
             $user_object = $DB->get_record('user', array('id' => $USER->id));
             $mform->addElement('header', 'book_specifieers', get_string('book_specifiers', 'digitalization'));
             $mform->addElement('html', digitalization_helper_render_information($digitalization, $course, $user_object));
+
+
+            //Add standard elements, common to all modules
+            $this->standard_coursemodule_elements();
+
+            //Add standard buttons, common to all modules
+            $this->add_action_buttons();
         } else {
 
             $PAGE->requires->js_call_amd('mod_digitalization/digitalization_form', 'init');
@@ -67,18 +90,9 @@ class mod_digitalization_mod_form extends moodleform_mod
             //Adding the "general" fieldset, where all the common settings are displayed
             $mform->addElement('header', 'general', get_string('general', 'form'));
 
-            //Adding the standard "name" field
-            $name_attributes = array('size' => '45');
-            if (isset($_SESSION['dig_name']) && $_SESSION['dig_name'] != '') {
-                $name_attributes['value'] = $_SESSION['dig_name'];
-            } else {
-                $name_attributes['value'] = '';
-            }
-
-            $mform->addElement('text', 'name', get_string('name', 'digitalization'), $name_attributes);
+            $this->render_name_field();
 
 
-            $mform->setType('name', PARAM_TEXT);
 
             $mform->addRule('name', null, 'required', null, 'client');
             $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
@@ -111,7 +125,7 @@ class mod_digitalization_mod_form extends moodleform_mod
                 if (isset($_SESSION['dig_errors']) && $_SESSION['dig_errors'] != false) {
                     $mform->addElement('html', '<div class="form-group has-danger felement ftext error">' .
                         '<div class="form-control-feedback form-item">- ' . $_SESSION['dig_errors']
-                         . '</div></div>');
+                        . '</div></div>');
                 }
 
                 $elementsArray = array();
@@ -178,22 +192,14 @@ class mod_digitalization_mod_form extends moodleform_mod
 
                 $mform->addElement('submit', 'back_to_automatic', get_string('back_to_automatic', 'digitalization'));
             }
+
+            //Add standard elements, common to all modules
+            $this->standard_coursemodule_elements();
+
+            //Add standard buttons, common to all modules
+            $this->add_action_buttons(true, false, get_string('send_order', 'digitalization'));
         }
 
-        //Add standard elements, common to all modules
-        $this->standard_coursemodule_elements();
-
-        /*
-        $features = new stdClass;
-        $features->groups = false;
-        $features->groupings = true;
-        $features->groupmembersonly = true;
-        $this->standard_coursemodule_elements($features);
-        */
-
-
-        //Add standard buttons, common to all modules
-        $this->add_action_buttons(true, false, get_string('send_order', 'digitalization'));
 
     }
 
