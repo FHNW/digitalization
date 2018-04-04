@@ -1,4 +1,4 @@
-define(['core/str', 'jquery'], function(str, $) {
+define(['core/str', 'jquery', 'theme_bootstrapbase/bootstrap'], function(str, $) {
     var NEBIS_URL = 'http://recherche.nebis.ch/';
     var module = {
         init: function() {
@@ -21,22 +21,24 @@ define(['core/str', 'jquery'], function(str, $) {
 
             var warningPresent = str.get_string('warning_submit_order', 'digitalization');
             $.when(warningPresent).done(function(warningString) {
-                $('#id_submitbutton2')
-                    .attr('data-toggle', 'tooltip')
-                    .attr('title', warningString)
-                    .tooltip({
-                        placement: 'top'
-                    });
+                $(function() {
+                    $('#id_submitbutton2')
+                        .attr('data-toggle', 'tooltip')
+                        .attr('data-placement', 'top')
+                        .attr('title', warningString)
+                        .tooltip();
+                });
             });
 
             var helpPresent = str.get_string('import_from_opac_group_help', 'digitalization');
             $.when(helpPresent).done(function(helpString) {
-                $('#id_load_order_info')
-                    .attr('data-toggle', 'tooltip')
-                    .attr('title', helpString)
-                    .tooltip({
-                        placement: 'right'
-                    });
+                $(function() {
+                    $('#id_load_order_info')
+                        .attr('data-toggle', 'tooltip')
+                        .attr('data-placement', 'right')
+                        .attr('title', helpString)
+                        .tooltip();
+                });
             });
 
         }
