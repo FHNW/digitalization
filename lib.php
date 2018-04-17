@@ -33,10 +33,22 @@ require_once(dirname(dirname(dirname(__FILE__))).'/config.php');
 require_once(dirname(__FILE__).'/lib.php');
 
 /**
+ * Serialize library array
+ */
+
+function serialiaze_library($library_array) {
+    return implode(";", $library_array);
+}
+
+function deserialize_library($library_string) {
+    return explode(";", $library_string);
+}
+
+/**
  * Returns ist of supported libraries
  */
-function get_libraries() {
-    return array(
+function get_libraries($library_ids = null) {
+    $libraries = array(
         'Bibliothek Basel ISEK',
         'Bibliothek Basel ISP',
         'Bibliothek Brugg-Windisch Pädagogik',
@@ -45,6 +57,14 @@ function get_libraries() {
         'Bibliothek Liestal',
         'Bibliothek Solothurn'
     );
+    if ($library_ids == null) {
+        return $libraries;
+    }
+    $output = array();
+    foreach($library_ids as $library_id) {
+        array_push($output, $libraries[$library_id]);
+    }
+    return $output;
 }
 
 /**
@@ -72,7 +92,7 @@ function digitalization_add_instance($digitalization)
         $_SESSION['dig_description'] = $digitalization->description['text'];
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
-        $_SESSION['dig_library'] = $digitalization->library;
+        $_SESSION['dig_library'] = serialiaze_library($digitalization->library);
         $_SESSION['dig_manually'] = 1;
         redirect($PAGE->url);
     } elseif (isset($digitalization->back_to_automatic)) {
@@ -86,7 +106,7 @@ function digitalization_add_instance($digitalization)
         $_SESSION['dig_description'] = $digitalization->description['text'];
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
-        $_SESSION['dig_library'] = $digitalization->library;
+        $_SESSION['dig_library'] = serialiaze_library($digitalization->library);
         $_SESSION['dig_library_url'] = $digitalization->library_url;
         redirect($PAGE->url);
     } else {
@@ -123,8 +143,14 @@ function digitalization_add_instance($digitalization)
         if (!isset($digitalization->pagecount)) {
             $digitalization->pagecount = '';
         }
-        $digitalization->library_url = $_SESSION['dig_library_url'];
-        $digitalization->description = $_SESSION['dig_description'];
+        if (isset($_SESSION['dig_library_url']) && ($_SESSION['dig_library_url'] != null)) {
+            $digitalization->library_url = $_SESSION['dig_library_url'];
+        } else {
+            $digitalization->library_url = null;
+        }
+
+        $digitalization->description = $digitalization->description['text'];
+        $digitalization->library = serialiaze_library($digitalization->library);
 
 
         //Insert the digitalization order to the database
@@ -643,7 +669,7 @@ URL Bibliothekskatalog: ' . $digitalization->library_url . '
 Mailadresse Besteller: ' . $digitalization->useremail . '
 Name Besteller: ' . $digitalization->username . '
 Kurs: ' . $course->fullname . '
-Stammbibliothek: ' . get_libraries()[$digitalization->library] . '
+Stammbibliothek: ' . implode(', ', get_libraries(deserialize_library($digitalization->library))) . '
 Autor: ' . $digitalization->author . '
 Titel des Buches/Zeitschrift: ' . $digitalization->title . '
 Titel des Kapitels: ' . $digitalization->atitle . '
@@ -768,7 +794,7 @@ function digitalization_helper_render_information($digitalization, $course, $use
 </tr>
 <tr>
 <td><p>' . get_string('library', 'digitalization') . '</p></td>
-<td><p>' . get_libraries()[$digitalization->library] . '</p></p></td>
+<td><p>' . implode(', ', get_libraries(deserialize_library($digitalization->library))) . '</p></p></td>
 </tr>
 <tr>
 <td><p>' . get_string('library_url', 'digitalization') . '</p></td>
