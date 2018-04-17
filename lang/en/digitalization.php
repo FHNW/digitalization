@@ -132,13 +132,14 @@ $string['delivery_email_subject'] = 'TUM/MOODLE: Digitalization completed';
 $string['delivery_email_body'] = 'Your digitalization order is completed and the delivered file was linked to your Moolde course.';
 
 $string['view_error'] = 'This document is temporarily not available.';
-$string['library_url'] = 'Library URL';
+$string['library_url'] = 'Search in the library catalogue';
 $string['load_order_info'] = 'Load document information';
 $string['enter_manually'] = 'Enter the order data manually';
 $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';
 $string['libraries_select'] = 'Choose the library';
 $string['library'] = 'Library';
+$string['to_library_catalogue'] = 'Go to library catalogue';
 $string['back_to_automatic'] = 'Back to library URL entry';
 $string['library_url_or_manually'] = 'Either supply a library URL or use manual data entering';
 $string['invalid_library_url'] = 'Couldnot parse the information on the library page. Please check the library URL or use the manual entry';

@@ -115,10 +115,11 @@ class mod_digitalization_mod_form extends moodleform_mod
             $this->render_description_field();
 
             // library
-            $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
+            $library = $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
+            $library->setMultiple(true);
             $mform->addRule('library', null, 'required', null, 'client');
             if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != null)) {
-                $mform->setDefault('library', $_SESSION['dig_library']);
+                $mform->setDefault('library', deserialize_library($_SESSION['dig_library']));
             }
 
 
@@ -144,9 +145,10 @@ class mod_digitalization_mod_form extends moodleform_mod
 
                 $elementsArray = array();
                 array_push($elementsArray, $library_url_field);
-                array_push($elementsArray, $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization')));
-                $mform->addGroup($elementsArray, 'import_from_opac_group', '', array(' '), false);
+                $mform->addGroup($elementsArray, 'import_from_opac_group', get_string('library_url', 'digitalization'), array(' '), false);
                 $mform->addHelpButton('import_from_opac_group', 'import_from_opac_group', 'digitalization');
+
+                $mform->addElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization'));
 
                 $mform->addElement('submit', 'enter_manually', get_string('enter_manually', 'digitalization'));
 
@@ -248,9 +250,9 @@ class mod_digitalization_mod_form extends moodleform_mod
 
             // library
             if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != '')) {
-                $this->media_data->library = $_SESSION['dig_library'];
+                $this->media_data->library = deserialize_library($_SESSION['dig_library']);
             } else {
-                $this->media_data->library = '';
+                $this->media_data->library = array();
             }
             //Signature
             if (isset($_SESSION['dig_sign']) && $_SESSION['dig_sign'] != '') {

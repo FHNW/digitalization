@@ -29,9 +29,9 @@ define(['core/str', 'jquery', 'theme_bootstrapbase/bootstrap'], function(str, $)
                         .tooltip();
             });
 
-            var helpPresent = str.get_string('import_from_opac_group_help', 'digitalization');
+            var helpPresent = str.get_string('to_library_catalogue', 'digitalization');
             $.when(helpPresent).done(function(helpString) {
-                    $('#id_load_order_info')
+                    $('#library_search_link')
                         .attr('data-toggle', 'tooltip')
                         .attr('data-placement', 'right')
                         .attr('title', helpString)
