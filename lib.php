@@ -825,20 +825,12 @@ function digitalization_helper_render_information($digitalization, $course, $use
 <td><p>' . $digitalization->pages . '</p></p></td>
 </tr>
 <tr>
-<td><p>' . get_string('issn', 'digitalization') . '</p></td>
-<td><p>' . $digitalization->issn . '</p></p></td>
-</tr>
-<tr>
-<td><p>' . get_string('isbn', 'digitalization') . '</p></td>
-<td><p>' . $digitalization->isbn . '</p></p></td>
+<td><p>ISBN / ISSN</p></td>
+<td><p>' . $digitalization->identifier . '</p></p></td>
 </tr>
 <tr>
 <td><p>' . get_string('publisher', 'digitalization') . '</p></td>
 <td><p>' . $digitalization->publisher . '</p></p></td>
-</tr>
-<tr>
-<td><p>' . get_string('sign', 'digitalization') . '</p></td>
-<td><p>' . $digitalization->sign . '</p></p></td>
 </tr>
 <tr>
 <td><p>' . get_string('comment', 'digitalization') . '</p></td>
