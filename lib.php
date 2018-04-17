@@ -179,6 +179,7 @@ function digitalization_update_instance($digitalization)
 
     $digitalization->timemodified = time();
     $digitalization->id = $digitalization->instance;
+    $digitalization->description = $digitalization->description['text'];
 
     # You may have to add extra stuff in here #
 

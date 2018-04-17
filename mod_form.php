@@ -60,6 +60,18 @@ class mod_digitalization_mod_form extends moodleform_mod
         $mform->setType('name', PARAM_TEXT);
     }
 
+    private function render_description_field() {
+        $mform =& $this->_form;
+        // Description
+        $mform->addElement('editor', 'description', get_string('description', 'digitalization'));
+
+        $mform->addHelpButton('description', 'description', 'digitalization');
+        $mform->setType('description', PARAM_RAW);
+        if (isset($_SESSION['dig_description']) && ($_SESSION['dig_description'] != null)) {
+            $mform->setDefault('description', array("text" => $_SESSION['dig_description']));
+        }
+    }
+
     function definition()
     {
 
@@ -70,12 +82,15 @@ class mod_digitalization_mod_form extends moodleform_mod
         if ($this->get_coursemodule() != null) {
 
             $this->render_name_field();
+            $this->render_description_field();
             $cm = $this->get_coursemodule();
             $course = $DB->get_record('course', array('id' => $cm->course), '*', MUST_EXIST);
             $digitalization = $DB->get_record('digitalization', array('id' => $cm->instance), '*', MUST_EXIST);
             $user_object = $DB->get_record('user', array('id' => $USER->id));
             $mform->addElement('header', 'book_specifieers', get_string('book_specifiers', 'digitalization'));
             $mform->addElement('html', digitalization_helper_render_information($digitalization, $course, $user_object));
+            $mform->setDefault("description", array("text" => $digitalization->description));
+
 
 
             //Add standard elements, common to all modules
@@ -97,14 +112,7 @@ class mod_digitalization_mod_form extends moodleform_mod
             $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
             $mform->addHelpButton('name', 'name', 'digitalization');
 
-            // Description
-            $mform->addElement('editor', 'description', get_string('description', 'digitalization'));
-
-            $mform->addHelpButton('description', 'description', 'digitalization');
-            $mform->setType('description', PARAM_RAW);
-            if (isset($_SESSION['dig_description']) && ($_SESSION['dig_description'] != null)) {
-                $mform->setDefault('description', array("text" => $_SESSION['dig_description']));
-            }
+            $this->render_description_field();
 
             // library
             $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
