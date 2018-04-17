@@ -51,9 +51,8 @@ $string['media_title'] = 'Published in';
 $string['date'] = 'Date';
 $string['volume'] = 'Volume';
 $string['issue'] = 'Issue';
-$string['pages'] = 'Pages';
-$string['pages_help'] = 'Please consider that after Par.52a UrhG you may only publish small parts of a work or individual articles. <br>
-For more information see <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
+$string['pages'] = 'Pages / Signature';
+$string['pages_help'] = 'In case the desired medium is an analog one, please include here the signature information from the library catalogue and add a comment below';
 $string['publisher'] = 'Publisher';
 $string['pagecount'] = 'Page count';
 $string['comment'] = 'Comment';
