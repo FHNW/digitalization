@@ -120,6 +120,7 @@ $string['load_order_info'] = 'Buchdetails laden';
 $string['get_deliveries'] = 'Die DigiSem-Bestellungen überprüfen';
 $string['library_search'] = 'Bibliothek durchsuchen';
 $string['libraries_select'] = 'Stammbibliothek auswählen:';
+$string['libraries_select_help'] = 'Wählen Sie diejenige Bibliothek aus, wo der Semesterapparat steht. Falls der Semesterapparat an mehreren Standorten steht, ist Mehrfachauswahl möglich. Halten Sie dafür die Strg-Taste gedrückt.';
 $string['enter_manually'] = 'Buchdetails manuell eingeben';
 $string['back_to_automatic'] = 'Zurück zur Bibliotheken-URL-Eingabe';
 $string['library_url_or_manually'] = 'Bitte geben Sie entweder eine Bibliotheken-URL oder wählen Sie manuelle Eingabe';

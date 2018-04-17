@@ -137,6 +137,7 @@ $string['enter_manually'] = 'Enter the order data manually';
 $string['get_deliveries'] = 'Check for DigiSem deliveries';
 $string['library_search'] = 'Search Library';
 $string['libraries_select'] = 'Choose the library';
+$string['libraries_select_help'] = 'Please chose the library which contains the digitalization. If the digitalization exists at multiple locations, you can choose multiple options by holding down the control key';
 $string['library'] = 'Library';
 $string['to_library_catalogue'] = 'Go to library catalogue';
 $string['back_to_automatic'] = 'Back to library URL entry';
