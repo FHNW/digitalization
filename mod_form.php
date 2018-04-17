@@ -93,11 +93,18 @@ class mod_digitalization_mod_form extends moodleform_mod
             $this->render_name_field();
 
 
-
             $mform->addRule('name', null, 'required', null, 'client');
             $mform->addRule('name', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
             $mform->addHelpButton('name', 'name', 'digitalization');
 
+            // Description
+            $mform->addElement('editor', 'description', get_string('description', 'digitalization'));
+
+            $mform->addHelpButton('description', 'description', 'digitalization');
+            $mform->setType('description', PARAM_RAW);
+            if (isset($_SESSION['dig_description']) && ($_SESSION['dig_description'] != null)) {
+                $mform->setDefault('description', array("text" => $_SESSION['dig_description']));
+            }
 
             // library
             $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
@@ -181,6 +188,7 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $mform->addElement('text', 'publisher', get_string('publisher', 'digitalization'));
                 $mform->setDefault('publisher', $this->media_data->publisher);
                 $mform->setType('publisher', PARAM_NOTAGS);
+
                 //Comment
                 $comment_attributes = array('size' => '45');
                 $mform->addElement('text', 'dig_comment', get_string('comment', 'digitalization'), $comment_attributes);
@@ -288,6 +296,12 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $this->media_data->library_url = $_SESSION['dig_library_url'];
             } else {
                 $this->media_data->library_url = '';
+            }
+
+            if (isset($_SESSION['dig_description']) && $_SESSION['dig_description'] != '') {
+                $this->media_data->description = $_SESSION['dig_description'];
+            } else {
+                $this->media_data->description = '';
             }
         }
     }

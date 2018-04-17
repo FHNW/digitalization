@@ -110,6 +110,15 @@ function xmldb_digitalization_upgrade($oldversion)
         upgrade_mod_savepoint(true, 2018012806, 'digitalization');
     }
 
+    if ($oldversion < 2018041703) {
+        $table = new xmldb_table('digitalization');
+        $description = new xmldb_field('description', XMLDB_TYPE_TEXT, '1024', null, null, null, null, 'dig_comment');
+        if (!$dbman->field_exists($table, $description)) {
+            $dbman->add_field($table, $description);
+        }
+        upgrade_mod_savepoint(true, 2018041703, 'digitalization');
+    }
+
     return true;
 }
 

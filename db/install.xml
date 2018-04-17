@@ -17,8 +17,9 @@
         <FIELD NAME="sign" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="status" NEXT="isbn"/>
         <FIELD NAME="isbn" TYPE="char" LENGTH="18" NOTNULL="false" SEQUENCE="false" PREVIOUS="sign" NEXT="issn"/>
         <FIELD NAME="issn" TYPE="char" LENGTH="15" NOTNULL="false" SEQUENCE="false" PREVIOUS="isbn" NEXT="author"/>
-        <FIELD NAME="author" TYPE="char" LENGTH="160" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="library"/>
-        <FIELD NAME="library" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="author" NEXT="atitle"/>
+        <FIELD NAME="author" TYPE="char" LENGTH="160" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="library_url"/>
+        <FIELD NAME="library_url" TYPE="text" LENGTH="1024" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="library"/>
+        <FIELD NAME="library" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="false" PREVIOUS="library_url" NEXT="atitle"/>
         <FIELD NAME="atitle" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="title"/>
         <FIELD NAME="title" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="atitle" NEXT="volume"/>
         <FIELD NAME="volume" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" PREVIOUS="title" NEXT="issue"/>
@@ -27,7 +28,9 @@
         <FIELD NAME="pages" TYPE="char" LENGTH="32" NOTNULL="false" SEQUENCE="false" PREVIOUS="pub_date" NEXT="publisher"/>
         <FIELD NAME="publisher" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages" NEXT="pagecount"/>
         <FIELD NAME="pagecount" TYPE="char" LENGTH="16" NOTNULL="false" SEQUENCE="false" PREVIOUS="publisher" NEXT="dig_comment"/>
-        <FIELD NAME="dig_comment" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages"/>
+        <FIELD NAME="dig_comment" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages" NEXT="dig_comment"/>
+        <FIELD NAME="description" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="dig_comment"/>
+
       </FIELDS>
       <KEYS>
         <KEY NAME="prim_key_id" TYPE="primary" FIELDS="id" NEXT="frg_key_course_id"/>

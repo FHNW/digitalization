@@ -69,6 +69,7 @@ function digitalization_add_instance($digitalization)
     $_SESSION['dig_errors'] = false;
     if (isset($digitalization->enter_manually)) {
         $_SESSION['dig_name'] = $digitalization->name;
+        $_SESSION['dig_description'] = $digitalization->description['text'];
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
         $_SESSION['dig_library'] = $digitalization->library;
@@ -76,11 +77,13 @@ function digitalization_add_instance($digitalization)
         redirect($PAGE->url);
     } elseif (isset($digitalization->back_to_automatic)) {
         $_SESSION['dig_manually'] = 0;
+        $_SESSION['dig_description'] = $digitalization->description['text'];
         digitalization_helper_clear_session(/*full*/false);
         redirect($PAGE->url);
     } elseif (isset($digitalization->library_url)) {
         digitalization_helper_parse_page($digitalization->library_url);
         $_SESSION['dig_name'] = $digitalization->name;
+        $_SESSION['dig_description'] = $digitalization->description['text'];
         $_SESSION['dig_course_id'] = $digitalization->course;
         $_SESSION['dig_section'] = $digitalization->section;
         $_SESSION['dig_library'] = $digitalization->library;
@@ -121,6 +124,7 @@ function digitalization_add_instance($digitalization)
             $digitalization->pagecount = '';
         }
         $digitalization->library_url = $_SESSION['dig_library_url'];
+        $digitalization->description = $_SESSION['dig_description'];
 
 
         //Insert the digitalization order to the database
@@ -698,6 +702,7 @@ function digitalization_helper_clear_session($full=True)
 {
     if ($full) {
         unset($_SESSION['dig_name']);
+        unset($_SESSION['dig_description']);
         unset($_SESSION['dig_course_id']);
         unset($_SESSION['dig_section']);
         unset($_SESSION['dig_manually']);
@@ -856,6 +861,23 @@ function digitalization_helper_send_delivery($receiver_email, $digitalization = 
 
 
     mail($receiver_email, $email_subject, $email_body, $headers);
+}
+
+function digitalization_get_coursemodule_info($coursemodule) {
+    global $DB;
+    if (!$digitalization = $DB->get_record('digitalization', array('id'=>$coursemodule->instance),
+        '*')) {
+        return NULL;
+    }
+
+    $info = new cached_cm_info();
+    $info->name = $digitalization->name;
+    if($digitalization->status == 'delivered') {
+
+    }
+    $info->content = $digitalization->description;
+
+    return $info;
 }
 
 function digitalization_helper_parse_page($library_url)

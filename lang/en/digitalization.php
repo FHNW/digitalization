@@ -58,7 +58,8 @@ $string['publisher'] = 'Publisher';
 $string['pagecount'] = 'Page count';
 $string['comment'] = 'Comment';
 $string['comment_help'] = 'Type in some additional information to your order for the library staff. ';
-
+$string['description'] = 'Description';
+$string['description_help'] = 'The description above will be displayed on the course page just below the link to the activity or resource.';
 $string['header_field_name'] = 'Name';
 $string['header_field_value'] = 'Value';
 $string['ordered_by'] = 'Ordered by';
