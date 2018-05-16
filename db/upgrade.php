@@ -137,6 +137,14 @@ function xmldb_digitalization_upgrade($oldversion)
         upgrade_mod_savepoint(true, 2018041705, 'digitalization');
     }
 
+    if ($oldversion < 2018051600) {
+        $table = new xmldb_table('digitalization');
+        $library_url = new xmldb_field('library_url', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        $dbman->change_field_type($table, $library_url);
+
+        upgrade_mod_savepoint(true, 2018051600, 'digitalization');
+    }
+
     return true;
 }
 

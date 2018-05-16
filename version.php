@@ -30,8 +30,7 @@
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->version  = 2018041705;    // If version == 0 then plugin will not be installed
-//$plugin->version  = 2010032200;  // The current plugin version (Date: YYYYMMDDXX)
+$plugin->version  = 2018051600;    // If version == 0 then plugin will not be installed
 $plugin->requires = 2010031900;    // Requires this Moodle version
 $plugin->cron     = 15;            // Period for cron to check this plugin (secs)
 $plugin->component = "mod_digitalization";
