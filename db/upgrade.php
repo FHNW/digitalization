@@ -145,6 +145,14 @@ function xmldb_digitalization_upgrade($oldversion)
         upgrade_mod_savepoint(true, 2018051600, 'digitalization');
     }
 
+    if ($oldversion < 2018052200) {
+        $table = new xmldb_table('digitalization');
+        $pages = new xmldb_field('pages', XMLDB_TYPE_TEXT, '1024', null, null, null, null);
+        $dbman->change_field_type($table, $pages);
+
+        upgrade_mod_savepoint(true, 2018052200, 'digitalization');
+    }
+
     return true;
 }
 
