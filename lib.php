@@ -908,16 +908,21 @@ function digitalization_get_coursemodule_info($coursemodule) {
     return $info;
 }
 
-function digitalization_helper_parse_page($library_url)
+/*
+ * Parse an old primo page (<2018)
+ * Returns false if could parse results, else true (even for other errors)
+ */
+function digitalization_helper_parse_page_old_primo($library_url)
 {
     $c = curl_init($library_url);
+    curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
     curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
     $html = curl_exec($c);
 
     if (curl_error($c)) {
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
         $_SESSION['dig_errors'] = get_string('failed_to_load_url', 'digitalization', array("status" => $status));
-        return;
+        return true;
     }
     $dom = new DOMDocument;
     libxml_use_internal_errors(true);
@@ -946,9 +951,99 @@ function digitalization_helper_parse_page($library_url)
         $_SESSION['dig_errors'] = get_string('invalid_library_url', 'digitalization');
 
     }
+    return true;
+}
 
-//    $_SESSION['dig_language'] = $get_attribute('Sprache');
-//    $_SESSION['dig_type'] = $get_attribute('Typ');
-//    $_SESSION['dig_scope'] = $get_attribute('Umfang');
-//    $_SESSION['dig_stock'] = $get_attribute('Bestand');
+/*
+ * Get auth header for the new primo 2018 web interface
+*/
+function digitalization_get_authorization_header($page_url) {
+    $webservice_url_base = 'https://recherche.nebis.ch/primo_library/libweb/webservices/rest/v1/guestJwt/N00';
+    $query_data = array(
+        'isGuest' => 'true',
+        'lang' => 'de_DE',
+        'targetUrl' => $page_url,
+        'viewId' => 'NEBIS'
+    );
+    $query_str = http_build_query($query_data, null, '&',PHP_QUERY_RFC3986);
+    $webservice_url = "$webservice_url_base?$query_str";
+    $c = curl_init($webservice_url);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+    $auth_str = curl_exec($c);
+    if (curl_error($c)) {
+        return NULL;
+    }
+    // remove quotes around the string
+    $auth_str = substr($auth_str, 1, -1);
+    return "Authorization: Bearer $auth_str";
+}
+/*
+ * Parse a primo 2018 version page
+ * Returns false if could parse results, else true (even for other errors)
+ */
+function digitalization_helper_parse_page_new_primo($page_url) {
+    // ebi01_prod006210123
+    $webservice_url_base = 'https://recherche.nebis.ch/primo_library/libweb/webservices/rest/primo-explore/v1/pnxs/L/';
+    $query_str = parse_url($page_url, PHP_URL_QUERY);
+    parse_str($query_str, $query);
+    $document_id = $query['docid'];
+    $webservice_query_data = array('vid' => 'NEBIS',
+        'lang' => 'de_DE',
+        'search_scope' => 'default_scope',
+        'adaptor' => 'Local Search Engine'
+    );
+    $webservice_query_str = http_build_query($webservice_query_data, null, '&', PHP_QUERY_RFC3986);
+    $webservice_url = "$webservice_url_base$document_id?$webservice_query_str";
+
+    $authorization_header = digitalization_get_authorization_header($page_url);
+    if ($authorization_header === NULL) {
+        return false;
+    }
+    $c = curl_init($webservice_url);
+    curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($c, CURLOPT_FOLLOWLOCATION, true);
+    curl_setopt($c, CURLOPT_HTTPHEADER, array(
+        $authorization_header
+    ));
+    $json_str = curl_exec($c);
+
+    if (curl_error($c)) {
+        $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
+        $_SESSION['dig_errors'] = get_string('failed_to_load_url', 'digitalization', array("status" => $status));
+        return true;
+    }
+
+    $json = json_decode($json_str);
+    if ($json == NULL || isset($json->error)) {
+        return false;
+    }
+    $doc_data = $json->pnx->addata;
+    // the actually displayed data
+    // $display_data = $json->pnx->display;
+    $_SESSION['dig_title'] = $doc_data->btitle;
+    // convert author names to a more natural format
+    $authors = array();
+    foreach ($doc_data->au as $author) {
+        $author_pair = explode(', ', $author);
+        if (count($author_pair) == 2) {
+            array_push($authors, $author_pair[1] . " " . $author_pair[0]);
+        } else {
+            array_push($authors, $author);
+        }
+    }
+    $_SESSION['dig_author'] = implode('; ', $authors);
+    $_SESSION['dig_title'] = $doc_data->btitle[0];
+    $_SESSION['dig_publisher'] = $doc_data->cop[0] . ", " . $doc_data->pub[0] ;
+    $_SESSION['dig_date'] = $doc_data->date[0];
+    $_SESSION['dig_identifier'] = isset($doc_data->isbn) ?
+        implode(', ', $doc_data->isbn) : '';
+    return true;
+}
+
+function digitalization_helper_parse_page($library_url) {
+    if (!digitalization_helper_parse_page_new_primo($library_url) &&
+        !digitalization_helper_parse_page_old_primo($library_url)) {
+        digitalization_helper_clear_session(false);
+        $_SESSION['dig_errors'] = get_string('invalid_library_url', 'digitalization');
+    }
 }
