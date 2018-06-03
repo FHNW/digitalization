@@ -116,7 +116,6 @@ class mod_digitalization_mod_form extends moodleform_mod
 
             // library
             $library = $mform->addElement('select', 'library', get_string('libraries_select', 'digitalization'), get_libraries());
-            $library->setMultiple(true);
             $mform->addRule('library', null, 'required', null, 'client');
             $mform->addHelpButton('library', 'libraries_select', 'digitalization');
             if (isset($_SESSION['dig_library']) && ($_SESSION['dig_library'] != null)) {

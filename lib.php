@@ -37,6 +37,9 @@ require_once(dirname(__FILE__).'/lib.php');
  */
 
 function serialiaze_library($library_array) {
+    if (!is_array($library_array)) {
+        $library_array = array($library_array);
+    }
     return implode(";", $library_array);
 }
 
@@ -68,7 +71,7 @@ function get_libraries($library_ids = null) {
     }
     $output = array();
     foreach($library_ids as $library_id) {
-        array_push($output, $libraries[$library_id]);
+        $output[$library_id] = $libraries[$library_id];
     }
     return $output;
 }
