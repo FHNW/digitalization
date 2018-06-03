@@ -37,7 +37,6 @@ define(['core/str', 'jquery', 'theme_bootstrapbase/bootstrap'], function(str, $)
                         .attr('title', helpString)
                         .tooltip();
             });
-
         }
     };
     return module;

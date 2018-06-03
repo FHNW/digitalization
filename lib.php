@@ -673,32 +673,62 @@ function digitalization_helper_send_order($digitalization)
 
 
     //Step 1: Create email-body
-    $email_body = 'Dateibezeichnung für FTP: ' . digitalization_helper_create_order_id_for($digitalization->id) . '
+    $libraries_str = implode(', ', get_libraries(deserialize_library($digitalization->library)));
+    $email_body_plain = 'Dateibezeichnung für FTP: ' . digitalization_helper_create_order_id_for($digitalization->id) . '
 URL Bibliothekskatalog: ' . $digitalization->library_url . '
 Mailadresse Besteller: ' . $digitalization->useremail . '
 Name Besteller: ' . $digitalization->username . '
 Kurs: ' . $course->fullname . '
-Stammbibliothek: ' . implode(', ', get_libraries(deserialize_library($digitalization->library))) . '
+Stammbibliothek: ' . $libraries_str . '
 Autor: ' . $digitalization->author . '
 Titel des Buches/Zeitschrift: ' . $digitalization->title . '
 Titel des Kapitels: ' . $digitalization->atitle . '
 Erscheinungsjahr: ' . $digitalization->pub_date . '
 Seiten: ' . $digitalization->pages . '
-Band (Heft): ' . $digitalization->volume . ' (' . $digitalization->issue . ')
 ISSN / ISBN: ' . $digitalization->identifier . '
 Verlag: ' . $digitalization->publisher . '
 Kommentar: ' . $digitalization->dig_comment . '
 ';
+    $escaped_library_url = htmlspecialchars($digitalization->library_url);
+    $email_body_html = "
+<table>
+<tbody>
+<tr><td>URL Bibliothekskatalog</td><td>$escaped_library_url</td></tr>
+<tr><td>Mailadresse Besteller</td><td>$digitalization->useremail</td></tr>
+<tr><td>Name Besteller</td><td>$digitalization->username</td></tr>
+<tr><td>Kurs</td><td>$course->fullname</td></tr>
+<tr><td>Stammbibliohthek</td><td>$libraries_str</td></tr>
+<tr><td>Author:</td><td>$digitalization->author</td></tr>
+<tr><td>Titel des Buches/Zeitschrift/Artikels</td><td>$digitalization->title</td></tr>
+<tr><td>Titel des Kapitels</td><td>$digitalization->atitle</td></tr>
+<tr><td>Erscheinungsjahr</td><td>$digitalization->pub_date</td></tr>
+<tr><td>Seiten</td><td>$digitalization->pages</td></tr>
+<tr><td>ISSN / ISBN</td><td>$digitalization->identifier</td></tr>
+<tr><td>Verlag</td><td>$digitalization->publisher</td></tr>
+<tr><td>Kommentar</td><td>$digitalization->dig_comment</td></tr>
+</tbody>
+</table>
+";
+
+    $boundary = sha1(uniqid());
+
+    $email_body = "Content-Type: text/plain; charset=\"utf8\"\r\n";
+    $email_body .= $email_body_plain . "\r\n";
+    $email_body .= "--$boundary\r\n";
+    $email_body .= "Content-Type: text/html; charset=\"utf8\"\r\n";
+    $email_body .= $email_body_html;
+    $email_body .= "--$boundary--\r\n";
+
 
 
     //Step 2: Send email
 
     $headers = "From: " . $DIGITALIZATION_OPTIONS['orderemail']['sender'] . "\r\n";
     $headers .= "MIME-Version: 1.0\r\n";
-    $headers .= "Content-type: text/plain; charset=utf-8\r\n";
+    $headers .= "Content-type: multipart/alternative; boundary=\"$boundary\"\r\n";
     $headers .= "Subject: DigiSem Order " . digitalization_helper_create_order_id_for($digitalization->id) . "\r\n";
 
-    mail($DIGITALIZATION_OPTIONS['orderemail']['receiver'], $DIGITALIZATION_OPTIONS['orderemail']['subject'], $email_body, $headers);
+     mail($DIGITALIZATION_OPTIONS['orderemail']['receiver'], $DIGITALIZATION_OPTIONS['orderemail']['subject'], $email_body, $headers);
 }
 
 
@@ -1019,7 +1049,7 @@ function digitalization_helper_parse_page_new_primo($page_url) {
     }
     $doc_data = $json->pnx->addata;
     // the actually displayed data
-    // $display_data = $json->pnx->display;
+    $display_data = $json->pnx->display;
     $_SESSION['dig_title'] = $doc_data->btitle;
     // convert author names to a more natural format
     $authors = array();
@@ -1032,7 +1062,7 @@ function digitalization_helper_parse_page_new_primo($page_url) {
         }
     }
     $_SESSION['dig_author'] = implode('; ', $authors);
-    $_SESSION['dig_title'] = $doc_data->btitle[0];
+    $_SESSION['dig_title'] = $doc_data->btitle ? $doc_data->btitle[0] : $display_data->title[0];
     $_SESSION['dig_publisher'] = $doc_data->cop[0] . ", " . $doc_data->pub[0] ;
     $_SESSION['dig_date'] = $doc_data->date[0];
     $_SESSION['dig_identifier'] = isset($doc_data->isbn) ?
