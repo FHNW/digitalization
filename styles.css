@@ -1,4 +1,8 @@
-#library_search_link {
+#page-mod-digitalization-mod .snap-form-required .editor_atto_content {
+    min-height: 125px !important;
+}
+
+#page-mod-digitalization-mod #library_search_link {
     display: inline-block;
     height: 31px;
     width: 31px;
@@ -9,6 +13,6 @@
     background-repeat: no-repeat;
 }
 
-#id_load_order_info, #fitem_id_enter_manually input {
+#page-mod-digitalization-mod #id_load_order_info, #fitem_id_enter_manually input {
     margin-bottom: 0 !important;
 }

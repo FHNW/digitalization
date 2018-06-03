@@ -63,7 +63,7 @@ class mod_digitalization_mod_form extends moodleform_mod
     private function render_description_field() {
         $mform =& $this->_form;
         // Description
-        $mform->addElement('editor', 'description', get_string('description', 'digitalization'));
+        $mform->addElement('editor', 'description', get_string('description', 'digitalization'), array('rows' => 3));
 
         $mform->addHelpButton('description', 'description', 'digitalization');
         $mform->setType('description', PARAM_RAW);
