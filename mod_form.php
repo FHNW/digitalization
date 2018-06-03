@@ -144,10 +144,12 @@ class mod_digitalization_mod_form extends moodleform_mod
 
                 $elementsArray = array();
                 array_push($elementsArray, $library_url_field);
+                $load_button = $mform->createElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization'));
+                array_push($elementsArray, $load_button);
                 $mform->addGroup($elementsArray, 'import_from_opac_group', get_string('library_url', 'digitalization'), array(' '), false);
                 $mform->addHelpButton('import_from_opac_group', 'import_from_opac_group', 'digitalization');
 
-                $mform->addElement('submit', 'load_order_info', get_string('load_order_info', 'digitalization'));
+
 
                 $mform->addElement('submit', 'enter_manually', get_string('enter_manually', 'digitalization'));
 

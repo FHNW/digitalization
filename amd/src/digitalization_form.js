@@ -4,7 +4,7 @@ define(['core/str', 'jquery', 'theme_bootstrapbase/bootstrap'], function(str, $)
     var module = {
         init: function() {
             // add direct link to the library
-            $('#id_library_url').after(
+            $('#id_library_url').before(
                 $('<a />')
                     .attr('id', 'library_search_link')
                     .attr('href', NEBIS_URL)
