@@ -23,8 +23,8 @@
  */
 defined('MOODLE_INTERNAL') || die();
 //Common module fields
-$string['modulename'] = 'Digit. Semesterapparat';
-$string['modulenameplural'] = 'Digit. Semesterapparate';
+$string['modulename'] = 'DigiSem';
+$string['modulenameplural'] = 'DigiSem';
 $string['modulename_help'] = 'Bestellen Sie Digitalisate von Zeitschriftenaufsätzen oder Buchkapiteln aus dem Bestand des Bibliotheksverbunds. <br>Recherchieren Sie komfortabel im Online-Katalog (NEBIS) die Literaturangaben und fügen Sie die URL direkt in das entsprechende Feld ein. <br>
 Nach dem Speichern der Literaturangaben scannt die Bibliothek das Material für Sie. Die PDF-Datei wird automatisch nach wenigen Tagen in Ihrem Moodle-Kursraum bereitgestellt. <br>
 Bei Fragen wenden Sie sich bitte an digisem@fhnw.ch.';
@@ -38,19 +38,19 @@ $string['book_specifiers'] = 'Literaturangaben';
 $string['import_from_opac_group'] = 'Daten aus dem Bibliothekskatalog importieren.';
 $string['import_from_opac_group_help'] = 'Geben Sie hier die vollständige URL des Werkes ein. Mit Klick auf den Pfeil gelangen Sie zum Bibliothekskatalog NEBIS. Recherchieren Sie nach dem Werk, gehen Sie in die Detailansicht und kopieren Sie die vollständige URL aus dem Browser, fügen Sie diese in das Feld ein und klicken Sie anschliessend auf den Button "Buchdetails laden"';
 $string['sign'] = 'Signatur';
-$string['article_title'] = 'Titel des Kapitels/Aufsatzes';
+$string['article_title'] = 'Titel des Kapitels/Aufsatzes/Artikels';
 $string['author'] = 'Autor';
 $string['media_title'] = 'Titel des Buches/der Zeitschrift';
 $string['date'] = 'Erscheinungsjahr';
 $string['volume'] = 'Band';
 $string['issue'] = 'Heft';
-$string['pages'] = 'Seiten / Signatur';
+$string['pages'] = 'Seiten';
 $string['publisher'] = 'Verlag';
 $string['pagecount'] = 'Seitenzahl';
-$string['pages_help'] = 'Handelt es sich um ein analoges Medium (z.B. Ganzes Buch, Medienkoffer, Lernspiele, Kunstband etc.), dann ergänzen Sie hier die Signatur aus dem Bibliothekskatalog und machen Sie im Kommentarfeld unten eine entsprechende Bemerkung, dass es sich um ein analoges Werk handelt.';
-$string['comment'] = 'Kommentar';
+$string['pages_help'] = 'Fügen Sie hier die Seiten oder Kapitelangaben ein. Handelt es sich um ein analoges Medium (z.B. Medienkoffer, Lernspiele, Kunstband etc.), vermerken Sie dies auch hier.';
+$string['comment'] = 'Kommentar für das Bibliothekspersonal';
 $string['comment_help'] = 'Geben Sie zusätzliche Informationen zu Ihrer Bestellung ein, die für das Bibliothekspersonal bestimmt sind. ';
-$string['description'] = 'Beschreibung';
+$string['description'] = 'Beschreibung des Dokuments';
 $string['description_help'] = 'Die Beschreibung wird zusammen mit dem Link auf der Kursseite angezeigt.';
 $string['header_field_name'] = 'Name';
 $string['header_field_value'] = 'Wert';

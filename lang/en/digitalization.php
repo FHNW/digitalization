@@ -28,8 +28,8 @@
 defined('MOODLE_INTERNAL') || die();
 
 //Common module fields
-$string['modulename'] = 'Digitalization';
-$string['modulenameplural'] = 'Digitalizations';
+$string['modulename'] = 'DigiSem';
+$string['modulenameplural'] = 'DigiSem';
 $string['modulename_help'] = 'Order Digitalisations from magazine articles or book chapters from the stock of the university library. <br> 
 Research comfortable for bibliography references in the Online-Catalouge (OPAC). Via `Bestellen` you can find the digitalization and you will be send via SFX back to your Moodle course. <br> After saving the literature references the university library will scann the material for you. The PDF output will be provided in Moodle after some days automatically. <br>
 For more information see <a href="http://www.ub.tum.de/digisem" target="_blank">http://www.ub.tum.de/digisem</a>.';
@@ -51,13 +51,13 @@ $string['media_title'] = 'Published in';
 $string['date'] = 'Date';
 $string['volume'] = 'Volume';
 $string['issue'] = 'Issue';
-$string['pages'] = 'Pages / Signature';
-$string['pages_help'] = 'In case the desired medium is an analog one, please include here the signature information from the library catalogue and add a comment below';
+$string['pages'] = 'Pages';
+$string['pages_help'] = 'Please insert the desired pages or chapters here. In case the desired medium is an analog one, please include here the signature information from the library catalogue and add a comment below';
 $string['publisher'] = 'Publisher';
 $string['pagecount'] = 'Page count';
-$string['comment'] = 'Comment';
+$string['comment'] = 'Comment for the library staff';
 $string['comment_help'] = 'Type in some additional information to your order for the library staff. ';
-$string['description'] = 'Description';
+$string['description'] = 'Document description ';
 $string['description_help'] = 'The description above will be displayed on the course page just below the link to the activity or resource.';
 $string['header_field_name'] = 'Name';
 $string['header_field_value'] = 'Value';
