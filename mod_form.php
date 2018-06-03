@@ -157,33 +157,34 @@ class mod_digitalization_mod_form extends moodleform_mod
             } else {
 
                 //Author
-                $mform->addElement('text', 'author', get_string('author', 'digitalization'));
+                $mform->addElement('text', 'author', get_string('author', 'digitalization'), array('size' => 45));
                 $mform->setDefault('author', $this->media_data->author);
                 $mform->addRule('author', null, 'required', null, 'client');
                 $mform->setType('author', PARAM_NOTAGS);
 
                 //Title of chapter/article
-                $mform->addElement('text', 'atitle', get_string('article_title', 'digitalization'));
+                $mform->addElement('text', 'atitle', get_string('article_title', 'digitalization'),
+                    $comment_attributes = array('size' => '45'));
                 $mform->setDefault('atitle', $this->media_data->atitle);
                 $mform->addRule('atitle', null, 'required', null, 'client');
                 $mform->setType('atitle', PARAM_NOTAGS);
 
                 //Title of book/journal
-                $mform->addElement('text', 'title', get_string('media_title', 'digitalization'));
+                $mform->addElement('text', 'title', get_string('media_title', 'digitalization'),
+                    array('size' => 45));
                 $mform->setDefault('title', $this->media_data->title);
                 $mform->addRule('title', null, 'required', null, 'client');
                 $mform->setType('title', PARAM_NOTAGS);
 
                 //Publication date
-                $mform->addElement('text', 'pub_date', get_string('date', 'digitalization'));
+                $mform->addElement('text', 'pub_date', get_string('date', 'digitalization'), array('size' => 45));
                 $mform->addRule('pub_date', null, 'required', null, 'client');
                 $mform->setDefault('pub_date', $this->media_data->date);
                 $mform->setType('pub_date', PARAM_NOTAGS);
 
 
                 //Pages
-                $pages_attributes = array('size' => '45');
-                $mform->addElement('text', 'pages', get_string('pages', 'digitalization'), $pages_attributes);
+                $mform->addElement('text', 'pages', get_string('pages', 'digitalization'), array('size' => 45));
 
                 $mform->addRule('pages', null, 'required', null, 'client');
                 $mform->addRule('pages', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
@@ -191,18 +192,19 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $mform->setType('pages', PARAM_NOTAGS);
 
 
+                // ISBN / ISSN
                 $mform->addElement('text', 'identifier', 'ISBN / ISSN', array('size' => 45));
                 $mform->setDefault('identifier', $this->media_data->identifier);
                 $mform->setType('identifier', PARAM_NOTAGS);
 
                 // Publisher
-                $mform->addElement('text', 'publisher', get_string('publisher', 'digitalization'));
+                $mform->addElement('text', 'publisher', get_string('publisher', 'digitalization'),
+                    array('size' => 45));
                 $mform->setDefault('publisher', $this->media_data->publisher);
                 $mform->setType('publisher', PARAM_NOTAGS);
 
                 //Comment
-                $comment_attributes = array('size' => '45');
-                $mform->addElement('text', 'dig_comment', get_string('comment', 'digitalization'), $comment_attributes);
+                $mform->addElement('text', 'dig_comment', get_string('comment', 'digitalization'), array('size' => 45));
 
                 $mform->addRule('dig_comment', get_string('maximumchars', '', 255), 'maxlength', 255, 'client');
                 $mform->addHelpButton('dig_comment', 'comment', 'digitalization');
