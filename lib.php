@@ -952,6 +952,7 @@ function digitalization_helper_parse_page_old_primo($library_url)
     if (curl_error($c)) {
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
         $_SESSION['dig_errors'] = get_string('failed_to_load_url', 'digitalization', array("status" => $status));
+        digitalization_helper_clear_session(false);
         return true;
     }
     $dom = new DOMDocument;
@@ -1040,6 +1041,7 @@ function digitalization_helper_parse_page_new_primo($page_url) {
     if (curl_error($c)) {
         $status = curl_getinfo($c, CURLINFO_HTTP_CODE);
         $_SESSION['dig_errors'] = get_string('failed_to_load_url', 'digitalization', array("status" => $status));
+        digitalization_helper_clear_session(false);
         return true;
     }
 
