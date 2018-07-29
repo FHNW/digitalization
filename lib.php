@@ -164,7 +164,11 @@ function digitalization_add_instance($digitalization)
 
         //Insert the digitalization order to the database
         //Notice: insert_record returns the ID of the new record (if 3rd parameter is not set or set to TRUE)
-        $id = $DB->insert_record('digitalization', $digitalization);
+        try {
+            $id = $DB->insert_record('digitalization', $digitalization);
+        } catch (dml_write_exception $e) {
+            print_error($e->error);
+        }
 
         //Set the ID of the database recordset to the object, because it's needed for
         //for sending the order email in the next step

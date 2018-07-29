@@ -121,7 +121,7 @@ function xmldb_digitalization_upgrade($oldversion)
 
     if ($oldversion < 2018041704) {
         $table = new xmldb_table('digitalization');
-        $library = new xmldb_field('library', XMLDB_TYPE_TEXT, '512', null, null, null, null, null);
+        $library = new xmldb_field('library', XMLDB_TYPE_TEXT, '8', null, null, null, null, null);
 
         $dbman->change_field_type($table, $library);
         upgrade_mod_savepoint(true, 2018041704, 'digitalization');
@@ -184,10 +184,10 @@ function xmldb_digitalization_upgrade($oldversion)
         $pages = new xmldb_field('pages', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
         $dbman->change_field_type($table, $pages);
 
-        $dig_comment = new xmldb_field('dig_comment', XMLDB_TYPE_CHAR, '512', null, null, null, null, null);
+        $dig_comment = new xmldb_field('dig_comment', XMLDB_TYPE_CHAR, '1024', null, null, null, null, null);
         $dbman->change_field_type($table, $dig_comment);
 
-        $description = new xmldb_field('description', XMLDB_TYPE_CHAR, '512', null, null, null, null, null);
+        $description = new xmldb_field('description', XMLDB_TYPE_CHAR, '1024', null, null, null, null, null);
         $dbman->change_field_type($table, $description);
 
         $delivered_status_idx = new xmldb_index('delivered_status_idx', XMLDB_INDEX_NOTUNIQUE, array("status"));
