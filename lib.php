@@ -924,14 +924,14 @@ function digitalization_helper_send_delivery($receiver_email, $digitalization = 
 function digitalization_get_coursemodule_info($coursemodule) {
     global $DB;
     if (!$digitalization = $DB->get_record('digitalization', array('id'=>$coursemodule->instance),
-        '*')) {
+        'id, name, status, description')) {
         return NULL;
     }
 
     $info = new cached_cm_info();
     $info->name = $digitalization->name;
     if($digitalization->status == 'delivered') {
-
+        // TODO different icon
     }
     $info->content = $digitalization->description;
 

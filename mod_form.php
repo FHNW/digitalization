@@ -192,7 +192,6 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $mform->setType('pages', PARAM_NOTAGS);
 
 
-                // ISBN / ISSN
                 $mform->addElement('text', 'identifier', 'ISBN / ISSN', array('size' => 45));
                 $mform->setDefault('identifier', $this->media_data->identifier);
                 $mform->setType('identifier', PARAM_NOTAGS);
@@ -256,12 +255,6 @@ class mod_digitalization_mod_form extends moodleform_mod
                 $this->media_data->library = deserialize_library($_SESSION['dig_library']);
             } else {
                 $this->media_data->library = array();
-            }
-            //Signature
-            if (isset($_SESSION['dig_sign']) && $_SESSION['dig_sign'] != '') {
-                $this->media_data->sign = $_SESSION['dig_sign'];
-            } else {
-                $this->media_data->sign = '';
             }
 
             //Title of book/journal

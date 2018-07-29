@@ -121,7 +121,7 @@ function xmldb_digitalization_upgrade($oldversion)
 
     if ($oldversion < 2018041704) {
         $table = new xmldb_table('digitalization');
-        $library = new xmldb_field('library', XMLDB_TYPE_TEXT, '1024', null, null, null, null, null);
+        $library = new xmldb_field('library', XMLDB_TYPE_TEXT, '512', null, null, null, null, null);
 
         $dbman->change_field_type($table, $library);
         upgrade_mod_savepoint(true, 2018041704, 'digitalization');
@@ -151,6 +151,49 @@ function xmldb_digitalization_upgrade($oldversion)
         $dbman->change_field_type($table, $pages);
 
         upgrade_mod_savepoint(true, 2018052200, 'digitalization');
+    }
+
+    if ($oldversion < 2018072900) {
+        $table = new xmldb_table('digitalization');
+        $library_url = new xmldb_field('library_url', XMLDB_TYPE_CHAR, '1024', null, null, null, null, null);
+
+        if (!$dbman->field_exists($table, $library_url)) {
+            $dbman->add_field($table, $library_url);
+        } else {
+            $dbman->change_field_type($table, $library_url);
+        }
+
+        $library = new xmldb_field('library', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
+        $dbman->change_field_type($table, $library);
+
+        $identifier = new xmldb_field('identifier', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
+        $dbman->change_field_type($table, $identifier);
+
+        $author = new xmldb_field('author', XMLDB_TYPE_CHAR, '512', null, null, null, null, null);
+        $dbman->change_field_type($table, $author);
+
+        $atitle = new xmldb_field('atitle', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
+        $dbman->change_field_type($table, $atitle);
+
+        $title = new xmldb_field('title', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
+        $dbman->change_field_type($table, $title);
+
+        $pub_date = new xmldb_field('pub_date', XMLDB_TYPE_CHAR, '128', null, null, null, null, null);
+        $dbman->change_field_type($table, $pub_date);
+
+        $pages = new xmldb_field('pages', XMLDB_TYPE_CHAR, '256', null, null, null, null, null);
+        $dbman->change_field_type($table, $pages);
+
+        $dig_comment = new xmldb_field('dig_comment', XMLDB_TYPE_CHAR, '512', null, null, null, null, null);
+        $dbman->change_field_type($table, $dig_comment);
+
+        $description = new xmldb_field('description', XMLDB_TYPE_CHAR, '512', null, null, null, null, null);
+        $dbman->change_field_type($table, $description);
+
+        $delivered_status_idx = new xmldb_index('delivered_status_idx', XMLDB_INDEX_NOTUNIQUE, array("status"));
+        $dbman->add_index($table, $delivered_status_idx);
+
+        upgrade_mod_savepoint(true, 2018072900, 'digitalization');
     }
 
     return true;

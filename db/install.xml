@@ -13,24 +13,19 @@
         <FIELD NAME="name" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="course" NEXT="timecreated"/>
         <FIELD NAME="timecreated" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="name" NEXT="timemodified"/>
         <FIELD NAME="timemodified" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="timecreated" NEXT="status"/>
-        <FIELD NAME="status" TYPE="char" LENGTH="16" NOTNULL="false" SEQUENCE="false" PREVIOUS="timemodified" NEXT="sign"/>
-        <FIELD NAME="sign" TYPE="char" LENGTH="45" NOTNULL="false" SEQUENCE="false" PREVIOUS="status" NEXT="isbn"/>
-        <FIELD NAME="isbn" TYPE="char" LENGTH="18" NOTNULL="false" SEQUENCE="false" PREVIOUS="sign" NEXT="issn"/>
-        <FIELD NAME="issn" TYPE="char" LENGTH="15" NOTNULL="false" SEQUENCE="false" PREVIOUS="isbn" NEXT="author"/>
-        <FIELD NAME="identifier" TYPE="char" LENGTH="50" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="author"/>
-        <FIELD NAME="author" TYPE="char" LENGTH="160" NOTNULL="false" SEQUENCE="false" PREVIOUS="issn" NEXT="library_url"/>
-        <FIELD NAME="library_url" TYPE="text" LENGTH="1024" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="library"/>
-        <FIELD NAME="library" TYPE="text" LENGTH="1024" NOTNULL="true" SEQUENCE="false" PREVIOUS="library_url" NEXT="atitle"/>
-        <FIELD NAME="atitle" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="title"/>
-        <FIELD NAME="title" TYPE="char" LENGTH="135" NOTNULL="false" SEQUENCE="false" PREVIOUS="atitle" NEXT="volume"/>
-        <FIELD NAME="volume" TYPE="char" LENGTH="100" NOTNULL="false" SEQUENCE="false" PREVIOUS="title" NEXT="issue"/>
-        <FIELD NAME="issue" TYPE="int" LENGTH="10" NOTNULL="false" UNSIGNED="true" SEQUENCE="false" PREVIOUS="volume" NEXT="pub_date"/>
-        <FIELD NAME="pub_date" TYPE="text" LENGTH="small" NOTNULL="false" SEQUENCE="false" PREVIOUS="issue" NEXT="pages"/>
-        <FIELD NAME="pages" TYPE="text" LENGTH="1024" NOTNULL="false" SEQUENCE="false" PREVIOUS="pub_date" NEXT="publisher"/>
+        <FIELD NAME="status" TYPE="char" LENGTH="16" NOTNULL="false" SEQUENCE="false" PREVIOUS="timemodified" NEXT="identifier"/>
+        <FIELD NAME="identifier" TYPE="char" LENGTH="256" NOTNULL="false" SEQUENCE="false" PREVIOUS="status" NEXT="author"/>
+        <FIELD NAME="author" TYPE="char" LENGTH="512" NOTNULL="false" SEQUENCE="false" PREVIOUS="identifier" NEXT="library_url"/>
+        <FIELD NAME="library_url" TYPE="char" LENGTH="1024" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="library"/>
+        <FIELD NAME="library" TYPE="char" LENGTH="512" NOTNULL="true" SEQUENCE="false" PREVIOUS="library_url" NEXT="atitle"/>
+        <FIELD NAME="atitle" TYPE="char" LENGTH="256" NOTNULL="false" SEQUENCE="false" PREVIOUS="author" NEXT="title"/>
+        <FIELD NAME="title" TYPE="char" LENGTH="256" NOTNULL="false" SEQUENCE="false" PREVIOUS="atitle" NEXT="pub_date"/>
+        <FIELD NAME="pub_date" TYPE="char" LENGTH="128" NOTNULL="false" SEQUENCE="false" PREVIOUS="title" NEXT="pages"/>
+        <FIELD NAME="pages" TYPE="char" LENGTH="256" NOTNULL="false" SEQUENCE="false" PREVIOUS="pub_date" NEXT="publisher"/>
         <FIELD NAME="publisher" TYPE="char" LENGTH="255" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages" NEXT="pagecount"/>
         <FIELD NAME="pagecount" TYPE="char" LENGTH="16" NOTNULL="false" SEQUENCE="false" PREVIOUS="publisher" NEXT="dig_comment"/>
-        <FIELD NAME="dig_comment" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages" NEXT="description"/>
-        <FIELD NAME="description" TYPE="text" LENGTH="medium" NOTNULL="false" SEQUENCE="false" PREVIOUS="dig_comment"/>
+        <FIELD NAME="dig_comment" TYPE="char" LENGTH="512" NOTNULL="false" SEQUENCE="false" PREVIOUS="pages" NEXT="description"/>
+        <FIELD NAME="description" TYPE="char" LENGTH="512" NOTNULL="false" SEQUENCE="false" PREVIOUS="dig_comment"/>
 
       </FIELDS>
       <KEYS>
@@ -40,6 +35,7 @@
       </KEYS>
       <INDEXES>
         <INDEX NAME="index_copyof" UNIQUE="false" FIELDS="copy_of"/>
+        <INDEX NAME="delivered_status_idx" UNIQUE="false" FIELDS="status" />
       </INDEXES>
     </TABLE>
   </TABLES>
