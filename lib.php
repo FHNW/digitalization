@@ -64,10 +64,11 @@ function get_libraries($library_ids = null) {
         'Bibliothek Muttenz Pädagogik',
         'Bibliothek Muttenz Life Sciences',
         'Bibliothek Muttenz Architektur Bau und Geomatik',
+        'FHNW Bibliothek Olten',
     );
     if ($library_ids == null) {
         // ensure the correct ordering for the default library list
-        $library_ids = [7, 8, 9, 10, 2, 3, 4, 6];
+        $library_ids = [7, 8, 9, 10, 2, 3, 4, 6, 11];
     }
     $output = array();
     foreach($library_ids as $library_id) {
